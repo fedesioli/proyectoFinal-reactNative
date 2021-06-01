@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Touchable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import  Component from 'react-native';
-import Tarjeta from './tarjetas'
+import Tarjeta from './src/components/tarjetas'
 
 
 export default class App extends Component {
