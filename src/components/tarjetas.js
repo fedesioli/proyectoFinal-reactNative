@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, Modal } from 'react-native';
 import {Component} from 'react-native';
 
 
@@ -30,7 +30,7 @@ class Tarjeta extends React.Component{
                 {/* <Button onClick={this.verDetalles.bind(this)}>Detalles</Button>
                 <Button className='borrar' onClick={this.props.onDelete.bind(this, this.props.datospersona.login.uuid)}>Borrar</Button> */}
             </View>
-           
+          
         </View>
         );
     }

@@ -1,23 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Touchable, FlatList, SafeAreaView, Modal } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Touchable, FlatList, SafeAreaView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import  Component from 'react-native';
-import Tarjeta from './src/components/tarjetas'
-import {getData} from './src/api/randomUser'
-// import {styles} from './src/styles/styles'
+import Tarjeta from '../components/tarjetas'
+import {getData} from '../api/randomUser'
 
-
-export default class App extends React.Component {
-  constructor(){
+class Home extends React.Component {
+constructor(){
     super();
     this.state = {
       personas: [],
-      seleccionados: [],
-      showModal: false,
-      itemModal: {},
-
-
     }
 }
   componentDidMount(){
@@ -29,28 +22,10 @@ export default class App extends React.Component {
   }
 
   keyExtractor = (item, idx) => idx.toString();
-
   renderItem = ({item}) => {
     return(
-      <TouchableOpacity onPress={() => this.abrirModal(item)}>
-        <Tarjeta datosPersona={item}/>
-      </TouchableOpacity>
+      <Tarjeta datosPersona={item}/>
     )
-  }
-
-  async storeFavoritos(){
-    try{
-      const jsonUsers = Json.strigify(this.state.seleccionados);
-      await AsyncStorage.setItem('Favoritos', jsonUsers)
-    }catch(e){
-      console.log(e)
-    }
-  }
-
-  abrirModal(item){
-    this.setState({showModal: true, itemModal: null})
-    console.log(item)
-    console.log(this.state.itemModal)
   }
 
   render(){
@@ -67,21 +42,10 @@ export default class App extends React.Component {
           renderItem={this.renderItem}
           keyExtractor={this.keyExtractor}
         />
-        <Modal
-          visible= {this.state.showModal}
-          transparent= {false}
-          animationType= 'slide'
-          >
-              <View  style={styles.modalPadre}>
-                <View>
-                 <Text>MOdal</Text>    
-                </View>
-              </View>
-         </Modal>
         {/* Footer
         <View>
         <Text>Footer</Text>  
-      </View> */}
+        </View> */}
       </SafeAreaView>
      
     );
@@ -106,11 +70,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
       },
-      modalPadre:{
-        height: 200,
-        width:200,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-      }
     })
+
+ export default Home;
