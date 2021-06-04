@@ -1,8 +1,10 @@
-export function getData(){
-    fetch("https://randomuser.me/api/?results=20")
-            .then(response => response.json())
-            .then(data => { 
-                return data.results         
-                
-            })
+export async function getData(){
+   try{
+       let resultado = await fetch('https://randomuser.me/api?results=20');
+       let json = await resultado.json();
+       console.log(json);
+       return json.results;
+   }catch(e){
+       console.log(e)
+   }
 }

@@ -4,13 +4,12 @@ import {Component} from 'react-native';
 
 
 
-class Tarjeta extends Component{
+class Tarjeta extends React.Component{
 
     constructor(props){
         super(props);
         this.state = {
-            colorOriginal: props.color,  
-            displayDetalles: props.displayDetalle            
+                     
         }
     }
 
@@ -19,23 +18,17 @@ class Tarjeta extends Component{
 
     render(){
         return(
-        <View className="tarjetaPadre"  
-        // style = {{backgroundColor: this.state.color, flexDirection: this.props.flex, width: this.props.widthPadre}}    
-        >
-            <View className="tarjetaImagen" 
-            // style = {{width: this.props.widthTarjeta, height: this.props.heightTarjeta}}
-            >
-                <Image source={require('./Images/ejemploimg.jpg')} alt="" ></Image>
+        <View style={styles.tarjetaPadre}  >
+            <View className="tarjetaImagen">
+                <Image style={{width: 100,height:100}} source={{uri: this.props.datosPersona.picture.thumbnail}} alt="" ></Image>
             </View>
            
-            <View className='tarjetaHijo' 
-            style = {{width: this.props.widthTarjeta, height: this.props.heightTarjeta}}
-            >
-                <Text>Juan Perez</Text>
-                <Text>Juancitofacha@gmail.com</Text>
+            <View className='tarjetaHijo'>
+                <Text>{this.props.datosPersona.name.first}</Text>
+                <Text>{this.props.datosPersona.name.last}</Text>
                 <Text>22 - 2/6/2001</Text>    
-                <Button onClick={this.verDetalles.bind(this)}>Detalles</Button>
-                <Button className='borrar' onClick={this.props.onDelete.bind(this, this.props.datospersona.login.uuid)}>Borrar</Button>
+                {/* <Button onClick={this.verDetalles.bind(this)}>Detalles</Button>
+                <Button className='borrar' onClick={this.props.onDelete.bind(this, this.props.datospersona.login.uuid)}>Borrar</Button> */}
             </View>
            
         </View>
@@ -43,5 +36,10 @@ class Tarjeta extends Component{
     }
 
 }
-
+const styles = StyleSheet.create({
+    tarjetaPadre: {
+        borderColor: 'grey',       
+        
+      },
+    })
 export default Tarjeta;
