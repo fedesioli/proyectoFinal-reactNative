@@ -6,9 +6,6 @@ import  Component from 'react-native';
 import Tarjeta from './src/components/tarjetas'
 import {getData} from './src/api/randomUser'
 import 'react-native-gesture-handler';
-import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
 // import {styles} from './src/styles/styles'
 
 
