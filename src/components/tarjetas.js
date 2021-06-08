@@ -27,8 +27,8 @@ class Tarjeta extends React.Component{
                 <Text>{this.props.datosPersona.name.first}</Text>
                 <Text>{this.props.datosPersona.name.last}</Text>
                 <Text>22 - 2/6/2001</Text>    
-                {/* <Button onClick={this.verDetalles.bind(this)}>Detalles</Button>
-                <Button className='borrar' onClick={this.props.onDelete.bind(this, this.props.datospersona.login.uuid)}>Borrar</Button> */}
+                <Text onPress={() => this.props.verDetalles.bind(this)}>Detalles</Text>
+                {/* <Button className='borrar' onClick={this.props.onDelete.bind(this, this.props.datospersona.login.uuid)}>Borrar</Button> */}
             </View>
           
         </View>

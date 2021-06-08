@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import  Component from 'react-native';
 import Tarjeta from './src/components/tarjetas'
 import {getData} from './src/api/randomUser'
-import 'react-native-gesture-handler';
 // import {styles} from './src/styles/styles'
 
 
@@ -16,8 +15,7 @@ export default class App extends React.Component {
       personas: [],
       seleccionados: [],
       showModal: false,
-      itemModal: {},
-
+      itemModal: null,
 
     }
 }
@@ -33,9 +31,9 @@ export default class App extends React.Component {
 
   renderItem = ({item}) => {
     return(
-      <TouchableOpacity onPress={() => this.abrirModal(item)}>
-        <Tarjeta datosPersona={item}/>
-      </TouchableOpacity>
+      
+        <Tarjeta datosPersona={item} verDetalles={this.abrirModal}/>
+      
     )
   }
 
@@ -49,7 +47,7 @@ export default class App extends React.Component {
   }
 
   abrirModal(item){
-    this.setState({showModal: true, itemModal: null})
+    this.setState({showModal: true, itemModal: item})
     console.log(item)
     console.log(this.state.itemModal)
   }
@@ -74,15 +72,16 @@ export default class App extends React.Component {
           animationType= 'slide'
           >
               <View  style={styles.modalPadre}>
-                <View>
-                 <Text>MOdal</Text>    
+                <View  style={styles.modalHijo}>
+                 <Text>{
+                  this.state.itemModal &&
+                  this.state.itemModal.name.first
+                  }</Text>    
+                 <Text style={styles.closeModal} onPress={() => this.setState({showModal: false})}>X</Text> 
                 </View>
               </View>
          </Modal>
-        {/* Footer
-        <View>
-        <Text>Footer</Text>  
-      </View> */}
+        
       </SafeAreaView>
      
     );
@@ -108,10 +107,22 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
       },
       modalPadre:{
-        height: 200,
-        width:200,
+       
+        backgroundColor: 'rgba(0,0,0,0.1)',
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
+      },
+      modalHijo: {
+        height: 100,
+        width:200,  
+        backgroundColor: 'grey',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      closeModal:{
+        position: 'absolute',
+        top: 10,
+        right: 10,
       }
     })
