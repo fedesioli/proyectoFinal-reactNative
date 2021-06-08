@@ -30,9 +30,9 @@ import {getData} from '../api/randomUser'
 
   renderItem = ({item}) => {
     return(
-      <TouchableOpacity onPress={() => this.abrirModal(item)}>
-        <Tarjeta datosPersona={item}/>
-      </TouchableOpacity>
+      // <TouchableOpacity onPress={() => this.abrirModal(item)}>
+        <Tarjeta style={styles.tarjeta} datosPersona={item}/>
+      // </TouchableOpacity>
     )
   }
 
@@ -54,12 +54,11 @@ import {getData} from '../api/randomUser'
   render(){
     
     return (
-      <SafeAreaView style = {styles.homePadre}>
-        {/* Header */}
-        <View style={styles.headerPadre}>
-          <Text>Header</Text>  
-        </View>
+      <SafeAreaView  style = {styles.homePadre} >
+       
         {/* Body */}
+        <View style={styles.tarjetasContainer}>
+
         <FlatList
           data={this.state.personas}
           renderItem={this.renderItem}
@@ -81,6 +80,7 @@ import {getData} from '../api/randomUser'
               </View>
          </Modal>
         
+        </View>
       </SafeAreaView>
      
     );
@@ -92,16 +92,11 @@ const styles = StyleSheet.create({
     homePadre: {        
         width: '100%'
       },
-      headerPadre: {
-        paddingTop: 30,
-        marginBottom: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        height: 50,
-        backgroundColor: 'gray'
+      tarjeta:{
+        padding:50,
       },
       tarjetasContainer: {
+        width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
       },
