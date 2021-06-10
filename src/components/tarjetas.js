@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button, Image, Modal, Switch } from 'react-native';
 import {Component} from 'react-native';
 
@@ -9,14 +9,16 @@ class Tarjeta extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-                     
+        
         }
     }
 
     
-
-
+    
+    
     render(){
+       
+
         return(
         <View style={styles.tarjetaPadre}  >
             <View className="tarjetaImagen">
@@ -27,7 +29,7 @@ class Tarjeta extends React.Component{
                 <Text>{this.props.datosPersona.name.first}</Text>
                 <Text>{this.props.datosPersona.name.last}</Text>
                 <Text>22 - 2/6/2001</Text> 
-                <Switch></Switch>   
+                <Switch style={{marginTop: 5}}></Switch>   
                 {/* <Button onClick={this.verDetalles.bind(this)}>Detalles</Button>
                 <Button className='borrar' onClick={this.props.onDelete.bind(this, this.props.datospersona.login.uuid)}>Borrar</Button> */}
             </View>
