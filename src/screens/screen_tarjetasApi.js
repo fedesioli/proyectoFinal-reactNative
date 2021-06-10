@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Touchable, FlatLis
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import  Component from 'react-native';
 import Tarjeta from '../components/tarjetas'
-import {getData} from '../api/randomUser'
+import {getDataAPI} from '../api/randomUser'
 
 
  class TarjetasApi extends React.Component {
@@ -19,7 +19,7 @@ import {getData} from '../api/randomUser'
     }
 }
   componentDidMount(){
-    getData()
+    getDataAPI()
     .then(results => {
       // console.log(results);
       this.setState({personas: results});
@@ -38,8 +38,9 @@ import {getData} from '../api/randomUser'
 
   async storeFavoritos(){
     try{
-      const jsonUsers = Json.strigify(this.state.seleccionados);
+      const jsonUsers = JSON.stringify(this.state.seleccionados);
       await AsyncStorage.setItem('Favoritos', jsonUsers)
+      console.log(this.state.seleccionados)
     }catch(e){
       console.log(e)
     }
@@ -54,7 +55,7 @@ import {getData} from '../api/randomUser'
   agregarASeleccionados = (item) => {
     let seleccionados2 = this.state.seleccionados.concat(item)
     this.setState({seleccionados:seleccionados2})
-    console.log(item)
+    
   }
 
   render(){
@@ -65,11 +66,15 @@ import {getData} from '../api/randomUser'
         {/* Body */}
         <View style={styles.tarjetasContainer}>
 
+        
+
+
         <FlatList
           data={this.state.personas}
           renderItem={this.renderItem}
           keyExtractor={this.keyExtractor}
         />
+        <Text style={{fontSize: 30}} onPress= {this.storeFavoritos.bind(this)}>Importar</Text>
         <Modal
           visible= {this.state.showModal}
           transparent= {false}
@@ -105,6 +110,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: 20
       },
       modalPadre:{
        

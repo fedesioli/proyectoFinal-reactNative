@@ -6,7 +6,7 @@ import  Component from 'react-native';
 import Tarjeta from '../components/tarjetas'
 import {getData} from '../api/randomUser'
 
-class Modificar extends React.Component {
+class Home extends React.Component {
     constructor(){
         super();
         this.state = {
@@ -20,7 +20,10 @@ render(){
     return (
         <SafeAreaView>
             <View>
-            <Text>Screen modificar</Text>
+                <Text onPress={()=> this.props.navigation.navigate("tarjetasApi")}>Ir a tarjetas de la API</Text>
+                <Text onPress={()=> this.props.navigation.navigate("modificar")}>Ir a modificar</Text>
+                <Text onPress={()=> this.props.navigation.navigate("importadas")}>Ir a importadas</Text>
+                <Text onPress={()=> this.props.navigation.navigate("papelera")}>Ir a papelera</Text>
 
             </View>
 
@@ -30,4 +33,4 @@ render(){
 }
 }
 
-export default Modificar
+export default Home

@@ -4,7 +4,7 @@ import {Component} from 'react-native';
 
 
 
-class Tarjeta extends React.Component{
+class TarjetaImportada extends React.Component{
 
     constructor(props){
         super(props);
@@ -30,7 +30,7 @@ class Tarjeta extends React.Component{
                 <Text>{this.props.datosPersona.name.first}</Text>
                 <Text>{this.props.datosPersona.name.last}</Text>
                 <Text>22 - 2/6/2001</Text> 
-                <Text onPress={this.props.agregarASeleccionados.bind(this,this.props.datosPersona)}>Agregar a seleccionados</Text>
+                
                 {/* <Switch style={{marginTop: 5}} ></Switch>    */}
                 {/* <Button onClick={this.verDetalles.bind(this)}>Detalles</Button>
                 <Button className='borrar' onClick={this.props.onDelete.bind(this, this.props.datospersona.login.uuid)}>Borrar</Button> */}
@@ -55,4 +55,4 @@ const styles = StyleSheet.create({
 
       },
     })
-export default Tarjeta;
+export default TarjetaImportada;

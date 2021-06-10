@@ -5,6 +5,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Tarjeta from './src/components/tarjetas'
 import {getData} from './src/api/randomUser'
 import TarjetasApi from './src/screens/screen_tarjetasApi'
+import Home from './src/screens/screen_home'
+import Importadas from './src/screens/screen_importadas'
+import Papelera from './src/screens/screen_papelera'
+import Modificar from './src/screens/screen_modificar'
 
 import 'react-native-gesture-handler';
 import React, {Component} from 'react';
@@ -27,7 +31,11 @@ export default class App extends React.Component {
     return (
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name='home' component={Home}/>
           <Stack.Screen name='tarjetasApi' component={TarjetasApi}/>
+          <Stack.Screen name='importadas' component={Importadas}/>
+          <Stack.Screen name='modificar' component={Modificar}/>
+          <Stack.Screen name='papelera' component={Papelera}/>
         </Stack.Navigator>
       </NavigationContainer>
     );
