@@ -31,7 +31,7 @@ import {getData} from '../api/randomUser'
   renderItem = ({item}) => {
     return(
       // <TouchableOpacity onPress={() => this.abrirModal(item)}>
-        <Tarjeta style={styles.tarjeta} datosPersona={item}/>
+        <Tarjeta style={styles.tarjeta} datosPersona={item} agregarASeleccionados={this.agregarASeleccionados}/>
       // </TouchableOpacity>
     )
   }
@@ -49,6 +49,12 @@ import {getData} from '../api/randomUser'
     this.setState({showModal: true, itemModal: item})
     console.log(item)
     console.log(this.state.itemModal)
+  }
+
+  agregarASeleccionados = (item) => {
+    let seleccionados2 = this.state.seleccionados.concat(item)
+    this.setState({seleccionados:seleccionados2})
+    console.log(item)
   }
 
   render(){
