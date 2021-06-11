@@ -38,6 +38,9 @@ async getDataImportados(){
     }
 }
 
+borrarStorageCompleto(){
+  
+}
 
 
 render(){
@@ -54,7 +57,7 @@ render(){
           renderItem={this.renderItem}
           keyExtractor={this.keyExtractor}
         />
-
+          <Text onPress={this.borrarStorageCompleto}>Borrar Storage</Text>
             </View>
 
         </SafeAreaView>

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Touchable, FlatList, SafeAreaView, Modal } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Touchable, FlatList, SafeAreaView, Modal, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import  Component from 'react-native';
 import Tarjeta from '../components/tarjetas'
@@ -15,6 +15,8 @@ import {getDataAPI} from '../api/randomUser'
       seleccionados: [],
       showModal: false,
       itemModal: null,
+      tarjetasImportadas: [],
+      favoritosCompleto:[]
 
     }
 }
@@ -26,7 +28,7 @@ import {getDataAPI} from '../api/randomUser'
     })
   }
 
-  keyExtractor = (item, idx) => idx.toString();
+  keyExtractor = (item, idx) => item.login.uuid.toString();
 
   renderItem = ({item}) => {
     return(
@@ -38,13 +40,27 @@ import {getDataAPI} from '../api/randomUser'
 
   async storeFavoritos(){
     try{
-      const jsonUsers = JSON.stringify(this.state.seleccionados);
+      this.Importados(); 
+      console.log(this.state.tarjetasImportadas.length)
+      console.log(this.state.seleccionados.length)
+      const favoritos = [...this.state.tarjetasImportadas, ... this.state.seleccionados]
+      console.log(favoritos.length)
+      const jsonUsers = JSON.stringify(favoritos);
       await AsyncStorage.setItem('Favoritos', jsonUsers)
-      console.log(this.state.seleccionados)
+      Alert.alert('Se importaron las tarjetas seleccionadas')
     }catch(e){
       console.log(e)
     }
   }
+  async Importados(){
+    try{
+          const resultado = await AsyncStorage.getItem('Favoritos');
+          this.setState({tarjetasImportadas: JSON.parse(resultado)});
+          return resultado;   
+    }catch(e){
+          console.log(e)
+    }
+}
 
   abrirModal(item){
     this.setState({showModal: true, itemModal: item})
@@ -58,6 +74,7 @@ import {getDataAPI} from '../api/randomUser'
     
   }
 
+  
   render(){
     
     return (
