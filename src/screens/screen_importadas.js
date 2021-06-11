@@ -20,6 +20,8 @@ componentDidMount(){
     
 }
 
+keyExtractor = (item, idx) => item.login.uuid.toString();
+
 borrarTarjeta = (idTarjeta)=>{
   let resultado = this.state.personasFavoritas.filter( (item)=> {
 
@@ -46,8 +48,8 @@ async getDataImportados(){
     }
 }
 
-borrarStorageCompleto(){
-  
+borrarStorageCompleto = ()=> {
+  this.setState({personasFavoritas: []})
 }
 
 

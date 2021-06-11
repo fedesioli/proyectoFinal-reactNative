@@ -33,7 +33,7 @@ import {getDataAPI} from '../api/randomUser'
   renderItem = ({item}) => {
     return(
       // <TouchableOpacity onPress={() => this.abrirModal(item)}>
-        <Tarjeta style={styles.tarjeta} datosPersona={item} agregarASeleccionados={this.agregarASeleccionados}/>
+        <Tarjeta style={styles.tarjeta} datosPersona={item} agregarASeleccionados={this.agregarASeleccionados} deseleccionar={this.deseleccionar}/>
       // </TouchableOpacity>
     )
   }
@@ -49,6 +49,7 @@ import {getDataAPI} from '../api/randomUser'
       const jsonUsers = JSON.stringify(favoritos);
       await AsyncStorage.setItem('Favoritos', jsonUsers)
       Alert.alert(seleccionadosLength)
+      this.setState({seleccionados: []})
     }catch(e){
       console.log(e)
     }
@@ -72,6 +73,19 @@ import {getDataAPI} from '../api/randomUser'
   agregarASeleccionados = (item) => {
     let seleccionados2 = this.state.seleccionados.concat(item)
     this.setState({seleccionados:seleccionados2})
+    console.log(this.state.seleccionados.length)
+    
+  }
+
+  deseleccionar = (idTarjeta) => {
+    let resultado = this.state.seleccionados.filter( (item)=> {
+    
+      return item.login.uuid !== idTarjeta;
+      
+  })
+    this.setState({seleccionados: resultado})
+    console.log(this.state.seleccionados.length)
+
     
   }
 
