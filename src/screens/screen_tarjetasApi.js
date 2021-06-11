@@ -45,9 +45,10 @@ import {getDataAPI} from '../api/randomUser'
       console.log(this.state.seleccionados.length)
       const favoritos = [...this.state.tarjetasImportadas, ... this.state.seleccionados]
       console.log(favoritos.length)
+      const seleccionadosLength = "Se importaron las tarjetas "+this.state.seleccionados.length+ " seleccionadas" 
       const jsonUsers = JSON.stringify(favoritos);
       await AsyncStorage.setItem('Favoritos', jsonUsers)
-      Alert.alert('Se importaron las tarjetas seleccionadas')
+      Alert.alert(seleccionadosLength)
     }catch(e){
       console.log(e)
     }

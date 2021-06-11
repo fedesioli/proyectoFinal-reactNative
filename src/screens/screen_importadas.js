@@ -20,10 +20,18 @@ componentDidMount(){
     
 }
 
+borrarTarjeta = (idTarjeta)=>{
+  let resultado = this.state.personasFavoritas.filter( (item)=> {
+
+      return item.login.uuid !== idTarjeta;
+  })
+  this.setState({personasFavoritas: resultado});
+}
+
 renderItem = ({item}) => {
     return(
           // <TouchableOpacity onPress={() => this.abrirModal(item)}>
-            <TarjetaImportada style={styles.tarjeta} datosPersona={item} />
+            <TarjetaImportada style={styles.tarjeta} datosPersona={item} borrarTarjeta={this.borrarTarjeta}/>
           // </TouchableOpacity>
     )
 }

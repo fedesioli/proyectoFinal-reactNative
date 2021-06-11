@@ -30,6 +30,7 @@ class TarjetaImportada extends React.Component{
                 <Text>{this.props.datosPersona.name.first}</Text>
                 <Text>{this.props.datosPersona.name.last}</Text>
                 <Text>22 - 2/6/2001</Text> 
+                <Text onPress={this.props.borrarTarjeta}>Eliminar tarjeta</Text>
                 
                 {/* <Switch style={{marginTop: 5}} ></Switch>    */}
                 {/* <Button onClick={this.verDetalles.bind(this)}>Detalles</Button>

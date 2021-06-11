@@ -14,9 +14,11 @@ import 'react-native-gesture-handler';
 import React, {Component} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack'; 
+import {createDrawerNavigator} from '@react-navigation/drawer'; 
 
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export default class App extends React.Component {
   constructor(){
@@ -29,14 +31,23 @@ export default class App extends React.Component {
   render(){
     
     return (
+      // <NavigationContainer>
+      //   <Stack.Navigator>
+      //     <Stack.Screen name='home' component={Home}/>
+      //     <Stack.Screen name='tarjetasApi' component={TarjetasApi}/>
+      //     <Stack.Screen name='importadas' component={Importadas}/>
+      //     <Stack.Screen name='modificar' component={Modificar}/>
+      //     <Stack.Screen name='papelera' component={Papelera}/>
+      //   </Stack.Navigator>
+      // </NavigationContainer >
+          
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name='home' component={Home}/>
-          <Stack.Screen name='tarjetasApi' component={TarjetasApi}/>
-          <Stack.Screen name='importadas' component={Importadas}/>
-          <Stack.Screen name='modificar' component={Modificar}/>
-          <Stack.Screen name='papelera' component={Papelera}/>
-        </Stack.Navigator>
+        <Drawer.Navigator initialRouteName="tarjetasApi">
+          <Drawer.Screen name='tarjetasApi' component={TarjetasApi}/>
+          <Drawer.Screen name='importadas' component={Importadas}/>
+          <Drawer.Screen name='modificar' component={Modificar}/>
+          <Drawer.Screen name='papelera' component={Papelera}/>
+        </Drawer.Navigator>
       </NavigationContainer>
     );
   }
