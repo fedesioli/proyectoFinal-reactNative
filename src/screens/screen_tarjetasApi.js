@@ -41,14 +41,19 @@ import {getDataAPI} from '../api/randomUser'
   async storeFavoritos(){
     try{
       this.Importados(); 
-      console.log(this.state.tarjetasImportadas.length)
-      console.log(this.state.seleccionados.length)
+      // console.log(this.state.tarjetasImportadas.length)
+      // console.log(this.state.seleccionados.length)
       const favoritos = [...this.state.tarjetasImportadas, ... this.state.seleccionados]
       console.log(favoritos.length)
-      const seleccionadosLength = "Se importaron las tarjetas "+this.state.seleccionados.length+ " seleccionadas" 
+      const seleccionadosLength = "Se importaron las "+this.state.seleccionados.length+ " tarjetas seleccionadas" 
       const jsonUsers = JSON.stringify(favoritos);
       await AsyncStorage.setItem('Favoritos', jsonUsers)
-      Alert.alert(seleccionadosLength)
+      if(this.state.seleccionados.length != 0){
+        this.sacarImportados(this.state.seleccionados, this.state.personas)
+        Alert.alert(seleccionadosLength)
+      }else{
+        Alert.alert('No se selecciono ninguna tarjeta')
+      }
       this.setState({seleccionados: []})
     }catch(e){
       console.log(e)
@@ -85,10 +90,16 @@ import {getDataAPI} from '../api/randomUser'
   })
     this.setState({seleccionados: resultado})
     console.log(this.state.seleccionados.length)
-
-    
   }
 
+  sacarImportados(seleccionados, personas){
+    const myArrayFiltered = personas.filter( el => {
+      return seleccionados.some( f => {
+        return f.login.uuid != el.login.uuid 
+      });
+    });
+    this.setState({personas: myArrayFiltered})
+  }
   
   render(){
     
