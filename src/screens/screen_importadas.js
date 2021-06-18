@@ -22,13 +22,6 @@ componentDidMount(){
 
 keyExtractor = (item, idx) => item.login.uuid.toString();
 
-borrarTarjeta = (idTarjeta)=>{
-  let resultado = this.state.personasFavoritas.filter( (item)=> {
-
-      return item.login.uuid !== idTarjeta;
-  })
-  this.setState({personasFavoritas: resultado});
-}
 
 renderItem = ({item}) => {
     return(
@@ -52,6 +45,13 @@ borrarStorageCompleto = ()=> {
   this.setState({personasFavoritas: []})
 }
 
+borrarTarjeta = (idTarjeta) =>{
+  let resultado = this.state.personasFavoritas.filter( (item)=> {
+    
+    return item.login.uuid !== idTarjeta;
+})
+this.setState({personasFavoritas: resultado});
+}
 
 render(){
 
