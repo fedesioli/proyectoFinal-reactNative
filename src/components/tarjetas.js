@@ -16,17 +16,17 @@ class Tarjeta extends React.Component{
     }
   
         
-    // ifSeleccionado = () => {
+    ifSeleccionado = () => {
         
-    //     if(this.state.seleccionado === true){
-    //         this.props.agregarASeleccionados.bind(this,this.props.datosPersona)
-    //         this.setState({seleccionado: true, displaySeleccionar: "none", displayDeseleccionar: "flex"})
-    //     } else {
-    //         this.props.deseleccionar.bind(this,this.props.datosPersona.login.uuid)
-    //         this.setState({seleccionado: false, displaySeleccionar: "flex", displayDeseleccionar: "none"})
-    //     }
-    //     console.log(this.state.seleccionado)
-    // }
+        if(this.state.seleccionado === false){
+            this.props.agregarASeleccionados(this.props.datosPersona)
+            this.setState({seleccionado: true,})
+        } else {
+            this.props.deseleccionar(this.props.datosPersona.login.uuid)
+            this.setState({seleccionado: false,})
+        }
+        console.log(this.state.seleccionado)
+    }
 
     
     
@@ -44,13 +44,8 @@ class Tarjeta extends React.Component{
                 <Text>{this.props.datosPersona.name.first}</Text>
                 <Text>{this.props.datosPersona.name.last}</Text>
                 <Text>22 - 2/6/2001</Text> 
-                <Text onPress={this.props.agregarASeleccionados.bind(this, this.props.datosPersona)} >Agregar a seleccionados</Text>
-                <Text onPress={this.props.deseleccionar.bind(this, this.props.datosPersona.login.uuid)}>Deseleccionar</Text>
+                <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >Agregar a seleccionados</Text>
                 
-                
-                {/* <Switch style={{marginTop: 5}} ></Switch>    */}
-                {/* <Button onClick={this.verDetalles.bind(this)}>Detalles</Button>
-                <Button className='borrar' onClick={this.props.onDelete.bind(this, this.props.datospersona.login.uuid)}>Borrar</Button> */}
             </View>
           
         </View>

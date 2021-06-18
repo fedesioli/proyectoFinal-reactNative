@@ -93,11 +93,7 @@ import {getDataAPI} from '../api/randomUser'
   }
 
   sacarImportados(seleccionados, personas){
-    const myArrayFiltered = personas.filter( el => {
-      return seleccionados.some( f => {
-        return f.login.uuid != el.login.uuid 
-      });
-    });
+    const myArrayFiltered = personas.filter(item => !seleccionados.includes(item))
     this.setState({personas: myArrayFiltered})
   }
   

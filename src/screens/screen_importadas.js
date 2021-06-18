@@ -1,6 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Touchable, FlatList, SafeAreaView, Modal } from 'react-native';
+import { StyleSheet,
+   Text,
+    View,
+    TextInput,
+    TouchableOpacity,
+    Touchable,
+    FlatList,
+    SafeAreaView,
+    Modal,
+    Animated
+         } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import  Component from 'react-native';
 import TarjetaImportada from '../components/tarjetas_importadas'
@@ -10,7 +20,8 @@ class Importadas extends React.Component {
     constructor(){
         super();
         this.state = {
-         personasFavoritas: []
+         personasFavoritas: [],
+         eliminadas:[],
     
         }
     }
@@ -41,21 +52,51 @@ async getDataImportados(){
     }
 }
 
-borrarStorageCompleto = ()=> {
-  this.setState({personasFavoritas: []})
+async storeFavoritosVacio(){
+  try{
+    const favoritos = []
+    console.log(favoritos.length)
+    const jsonUsers = JSON.stringify(favoritos);
+    await AsyncStorage.setItem('Favoritos', jsonUsers)
+  }catch(e){
+    console.log(e)
+  }
 }
 
-borrarTarjeta = (idTarjeta) =>{
+borrarStorageCompleto = ()=> {
+  this.storeFavoritosVacio();
+  this.setState({personasFavoritas: []})
+  
+}
+
+borrarTarjeta = (tarjeta) =>{
+  let tarjetaEliminada = tarjeta
   let resultado = this.state.personasFavoritas.filter( (item)=> {
     
-    return item.login.uuid !== idTarjeta;
+    return item.login.uuid !== tarjeta.login.uuid;
 })
-this.setState({personasFavoritas: resultado});
+this.setState({personasFavoritas: resultado, eliminadas: tarjetaEliminada });
 }
+
+rotation = new Animated.Value(0);
+
+mostrarDetalle = () => {
+  Animated.timing(this.rotation, {
+    toValue: 1,
+    duration: 1500,
+    useNativeDriver: true,
+  }).start();
+}
+
+
 
 render(){
 
-   
+    const rot = this.rotation.interpolate({
+      inputRange: [0,1],
+      outputRange:['0deg','180deg']
+    })
+
     return (
         <SafeAreaView>
             <View style={styles.tarjetasContainer}>
