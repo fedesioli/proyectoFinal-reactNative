@@ -48,7 +48,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
       // console.log(this.state.tarjetasImportadas.length)
       // console.log(this.state.seleccionados.length)
       const favoritos = [...this.state.tarjetasImportadas, ... this.state.seleccionados]
-      console.log(favoritos.length)
+      // console.log(favoritos.length)
       const seleccionadosLength = "Se importaron las "+this.state.seleccionados.length+ " tarjetas seleccionadas" 
       const jsonUsers = JSON.stringify(favoritos);
       await AsyncStorage.setItem('Favoritos', jsonUsers)
@@ -82,7 +82,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
   agregarASeleccionados = (item) => {
     let seleccionados2 = this.state.seleccionados.concat(item)
     this.setState({seleccionados:seleccionados2})
-    console.log(this.state.seleccionados.length)
+    // console.log(this.state.seleccionados.length)
     
   }
 
@@ -93,7 +93,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
       
   })
     this.setState({seleccionados: resultado})
-    console.log(this.state.seleccionados.length)
+    // console.log(this.state.seleccionados.length)
   }
 
   sacarImportados(seleccionados, personas){

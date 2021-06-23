@@ -21,14 +21,13 @@ class Importadas extends React.Component {
         super();
         this.state = {
          personasFavoritas: [],
-         eliminadas:[],
-    
+         eliminadas:'',
+         tarjetasEnPapeleraPrevias: [],
         }
     }
 
 componentDidMount(){
     this.getDataImportados()
-    
 }
 
 keyExtractor = (item, idx) => item.login.uuid.toString();
@@ -63,6 +62,29 @@ async storeFavoritosVacio(){
   }
 }
 
+
+async updateFavoritos(){
+  try{
+   
+    const jsonUsers = JSON.stringify(this.state.personasFavoritas);
+    await AsyncStorage.setItem('Favoritos', jsonUsers)
+  }catch(e){
+    console.log(e)
+  }
+}
+
+async cargarPapelera(){
+  try{
+    this.traerPapelera();
+    const papelera = this.state.tarjetasEnPapeleraPrevias.push(this.state.eliminadas)
+    const jsonUsers = JSON.stringify(papelera);
+    await AsyncStorage.setItem('Papelera', jsonUsers)
+    console.log(jsonUsers + 'asda')
+  }catch(e){
+    console.log(e)
+  }
+}
+
 borrarStorageCompleto = ()=> {
   this.storeFavoritosVacio();
   this.setState({personasFavoritas: []})
@@ -70,32 +92,34 @@ borrarStorageCompleto = ()=> {
 }
 
 borrarTarjeta = (tarjeta) =>{
-  let tarjetaEliminada = tarjeta
+  
+  // console.log(tarjeta.login.uuid)
   let resultado = this.state.personasFavoritas.filter( (item)=> {
     
     return item.login.uuid !== tarjeta.login.uuid;
 })
-this.setState({personasFavoritas: resultado, eliminadas: tarjetaEliminada });
+this.setState({personasFavoritas: resultado, eliminadas: tarjeta });
+this.updateFavoritos();
+this.cargarPapelera();
+console.log(this.state.personasFavoritas.length)
 }
 
-rotation = new Animated.Value(0);
-
-mostrarDetalle = () => {
-  Animated.timing(this.rotation, {
-    toValue: 1,
-    duration: 1500,
-    useNativeDriver: true,
-  }).start();
+async traerPapelera(){
+  try{
+        const resultado = await AsyncStorage.getItem('Papelera');
+        this.setState({tarjetasEnPapeleraPrevias: JSON.parse(resultado)});
+        return resultado;   
+  }catch(e){
+        console.log(e)
+  }
 }
+
 
 
 
 render(){
 
-    const rot = this.rotation.interpolate({
-      inputRange: [0,1],
-      outputRange:['0deg','180deg']
-    })
+    
 
     return (
         <SafeAreaView>
