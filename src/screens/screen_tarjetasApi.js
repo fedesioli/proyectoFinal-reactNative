@@ -5,7 +5,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import  Component from 'react-native';
 import Tarjeta from '../components/tarjetas'
 import {getDataAPI} from '../api/randomUser'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+
+
 
 
  class TarjetasApi extends React.Component {

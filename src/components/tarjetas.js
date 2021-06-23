@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button, Image, Modal, Switch } from 'react-native';
 import {Component} from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { fas, far } from '@fortawesome/free-brands-svg-icons'
 
 
 class Tarjeta extends React.Component{
@@ -45,13 +46,18 @@ class Tarjeta extends React.Component{
                 <Text>{this.props.datosPersona.name.first}</Text>
                 <Text>{this.props.datosPersona.name.last}</Text>
                 <Text>22 - 2/6/2001</Text> 
-                if ({this.props.seleccionado === true}) {
-                    <FontAwesomeIcon icon="fas fa-check-circle" onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)}/>
+
+                {this.state.seleccionado === false ? 
+                <FontAwesomeIcon icon={faCheckCircle} onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)}/> :
+                <FontAwesomeIcon icon={faTimesCircle} onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)}/>
+                }
+                {/* if ({this.props.seleccionado}) {
+                    <FontAwesomeIcon icon={faCheckCircle} onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)}/>
                     // <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >Agregar a seleccionados</Text>    
                 } else {
-                    <FontAwesomeIcon icon="far fa-check-circle" onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)}/>
+                    <FontAwesomeIcon icon={faTimesCircle} onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)}/>
                     // <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >Agregar a seleccionados</Text>
-                }
+                } */}
 
                
                 
