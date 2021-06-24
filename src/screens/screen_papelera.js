@@ -53,6 +53,11 @@ render(){
       renderItem={this.renderItem}
       keyExtractor={this.keyExtractor}
     />
+     <View style={styles.hamburguerButton}>
+        <TouchableOpacity onPress={()=> this.props.navigation.toggleDrawer()}>
+              <Text  style={styles.burgerText}>=</Text>         
+       </TouchableOpacity>           
+          </View>
       {/* <Text onPress={this.borrarStorageCompleto}>Borrar Storage</Text> */}
         </View>
 
@@ -76,24 +81,24 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 20
       },
-      modalPadre:{
-       
-        backgroundColor: 'rgba(0,0,0,0.1)',
+      
+      hamburguerButton:{
+        width: 40,
+        height: 40,
+        backgroundColor: 'gray',
+        borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        flex: 1,
-      },
-      modalHijo: {
-        height: 100,
-        width:200,  
-        backgroundColor: 'grey',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-      closeModal:{
         position: 'absolute',
-        top: 10,
-        right: 10,
+        top: 0,
+        left: 10,
+        borderColor: 'black',
+        borderWidth: 2
+      },
+      burgerText:{
+        textAlignVertical: 'center',
+        fontSize: 20,
+        color: 'black'
       }
     })
     

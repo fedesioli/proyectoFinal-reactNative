@@ -38,14 +38,14 @@ class Tarjeta extends React.Component{
         
         return(
         <View style={styles.tarjetaPadre}  >
-            <View className="tarjetaImagen">
+            <View>
                 <Image style={{width: 100,height:100}} source={{uri: this.props.datosPersona.picture.thumbnail}} alt="" ></Image>
             </View>
            
             <View className='tarjetaHijo'>
                 <Text>{this.props.datosPersona.name.first}</Text>
                 <Text>{this.props.datosPersona.name.last}</Text>
-                <Text>22 - 2/6/2001</Text> 
+                <Text>{this.props.datosPersona.dob.age}</Text> 
 
                 {/* {this.state.seleccionado ? 
                 <FontAwesomeIcon icon={FaCheckCircle} onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)}/> :
@@ -54,7 +54,7 @@ class Tarjeta extends React.Component{
 
                 {this.state.seleccionado ? 
                 <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >Deseleccionar</Text> :
-                <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >Agregar a seleccionados</Text>
+                <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >Seleccionar</Text>
                 }
                
                 

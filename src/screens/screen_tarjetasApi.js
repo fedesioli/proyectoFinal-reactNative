@@ -47,7 +47,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
       this.Importados(); 
       // console.log(this.state.tarjetasImportadas.length)
       // console.log(this.state.seleccionados.length)
-      const favoritos = [...this.state.tarjetasImportadas, ... this.state.seleccionados]
+      const favoritos = [...this.state.tarjetasImportadas, ...this.state.seleccionados]
       // console.log(favoritos.length)
       const seleccionadosLength = "Se importaron las "+this.state.seleccionados.length+ " tarjetas seleccionadas" 
       const jsonUsers = JSON.stringify(favoritos);
@@ -105,7 +105,6 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
     
     return (
       <SafeAreaView  style = {styles.homePadre} >
-       
         {/* Body */}
         <View style={styles.tarjetasContainer}>
 
@@ -118,22 +117,11 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
           keyExtractor={this.keyExtractor}
         />
         <Text style={{fontSize: 30}} onPress= {this.storeFavoritos.bind(this)}>Importar</Text>
-        <Modal
-          visible= {this.state.showModal}
-          transparent= {false}
-          animationType= 'slide'
-          >
-              <View  style={styles.modalPadre}>
-                <View  style={styles.modalHijo}>
-                 <Text>{
-                  this.state.itemModal &&
-                  this.state.itemModal.name.first
-                  }</Text>    
-                 <Text style={styles.closeModal} onPress={() => this.setState({showModal: false})}>X</Text> 
-                </View>
-              </View>
-         </Modal>
-        
+          <View style={styles.hamburguerButton}>
+        <TouchableOpacity onPress={()=> this.props.navigation.toggleDrawer()}>
+              <Text  style={styles.burgerText}>=</Text>         
+       </TouchableOpacity>           
+          </View>
         </View>
       </SafeAreaView>
      
@@ -155,24 +143,23 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 20
       },
-      modalPadre:{
-       
-        backgroundColor: 'rgba(0,0,0,0.1)',
+      hamburguerButton:{
+        width: 40,
+        height: 40,
+        backgroundColor: 'gray',
+        borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        flex: 1,
-      },
-      modalHijo: {
-        height: 100,
-        width:200,  
-        backgroundColor: 'grey',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-      closeModal:{
         position: 'absolute',
-        top: 10,
-        right: 10,
+        top: 0,
+        left: 10,
+        borderColor: 'black',
+        borderWidth: 2
+      },
+      burgerText:{
+        textAlignVertical: 'center',
+        fontSize: 20,
+        color: 'black'
       }
     })
     export default TarjetasApi;
