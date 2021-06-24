@@ -12,6 +12,7 @@ class TarjetaModificar extends React.Component{
         this.state = {
             showModal: false,
             comentario: {},
+            comentarioAnterior: '',
         }
     }
   
@@ -20,8 +21,10 @@ class TarjetaModificar extends React.Component{
         this.setState({tarjeta: this.props.datosPersona})
     }
  
-    abrirModal = () =>{
-        this.setState({showModal: true})
+    abrirModal = async () =>{
+        const comentariosViejos = await getDataAsync(this.props.datosPersona.login.uuid)
+        // console.log(comentariosViejos)
+        this.setState({showModal: true, comentarioAnterior: comentariosViejos})
       }
              
       closeModal = () =>{
@@ -29,11 +32,11 @@ class TarjetaModificar extends React.Component{
       }
 
       guardarComentario = async () =>{
-          console.log(this.props.datosPersona.login.uuid)
+        //   console.log(this.props.datosPersona.login.uuid)
         const comentariosAnteriores = await getDataAsync(this.props.datosPersona.login.uuid)
-        const arrayComentarios = comentariosAnteriores.concat(this.state.comentario)
-        storeDataAsync(arrayComentarios, this.props.datosPersona.login.uuid)
-        console.log(arrayComentarios)
+        const comentarui = this.state.comentario
+        storeDataAsync(comentarui, this.props.datosPersona.login.uuid)
+        // console.log(comentarui)
       }
 
 
@@ -66,8 +69,9 @@ class TarjetaModificar extends React.Component{
                
                 <Text style={this.close} onPress={this.closeModal}>X</Text>
                 <Image style={{width: 100,height:100}} source={{uri: this.props.datosPersona.picture.large}} alt="" ></Image>
-                <Text>{this.props.datosPersona.name.first}</Text>
-             
+                <Text>{this.props.datosPersona.name.last}, {this.props.datosPersona.name.first}</Text>
+                <Text>Comentarios anteriores:</Text>
+                <Text>{this.state.comentarioAnterior}</Text>
                 <TextInput  placeholder="Deja aca tu comentario" style={this.inputSearch}  onChangeText={(value)=> this.setState({comentario: value}) }  /> 
                 <Button title="Guardar comentario" onPress={this.guardarComentario.bind(this, this.props.datosPersona.uuid)}></Button>
                 

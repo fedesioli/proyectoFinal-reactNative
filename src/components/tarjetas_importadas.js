@@ -6,7 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack'; 
 import {createDrawerNavigator} from '@react-navigation/drawer'; 
 import { TextInput } from 'react-native-gesture-handler';
-
+import { getDataAsync, storeDataAsync } from './funciones_async';
 
 
 
@@ -16,12 +16,20 @@ class TarjetaImportada extends React.Component{
         super(props);
         this.state = {
             showModal: false,
+            comentarioAnterior: '',
+            comentarioAnteriorShow: true,
         }
     }
   
         
-  abrirModal = () =>{
-    this.setState({showModal: true})
+  abrirModal = async () =>{
+    const comentariosViejos = await getDataAsync(this.props.datosPersona.login.uuid)
+        if(comentariosViejos != ""){
+
+            this.setState({showModal: true, comentarioAnterior: comentariosViejos})
+        }else{
+            this.setState({showModal: true, comentarioAnteriorShow: false})
+        }
   }
          
   closeModal = () =>{
@@ -43,7 +51,7 @@ class TarjetaImportada extends React.Component{
                 <Text>{this.props.datosPersona.name.last}</Text>
                 <Text>{this.props.datosPersona.dob.age}</Text> 
                 <Text onPress={this.abrirModal}>Ver Detalles</Text>
-                <Text onPress={()=>this.props.navigation.navigate('modificar')}>Comentar</Text>
+            
 
                 <Text onPress={this.props.borrarTarjeta.bind(this, this.props.datosPersona)}>Eliminar tarjeta</Text>
                 
@@ -58,8 +66,7 @@ class TarjetaImportada extends React.Component{
                 <Text style={this.close} onPress={this.closeModal}>X</Text>
                 <Text>Detalles</Text>
                 <Image style={{width: 200,height:200}} source={{uri: this.props.datosPersona.picture.large}} alt="" ></Image>
-                <Text>{this.props.datosPersona.name.first}</Text>
-                <Text>{this.props.datosPersona.name.last}</Text>
+                <Text>{this.props.datosPersona.name.last}, {this.props.datosPersona.name.first}</Text>
                 <Text>{this.props.datosPersona.dob.age}</Text> 
                 <Text>{this.props.datosPersona.location.street.name}, {this.props.datosPersona.location.street.number}.</Text>
                 <Text>{this.props.datosPersona.location.city}, {this.props.datosPersona.location.country}</Text>
@@ -67,6 +74,12 @@ class TarjetaImportada extends React.Component{
                 <Text>{this.props.datosPersona.email}</Text>
                 <Text>{this.props.datosPersona.phone}</Text> 
                 <Text>{this.props.datosPersona.registered.date}</Text> 
+                {this.state.comentarioAnteriorShow ? 
+                
+                <Text>Comentarios: {this.state.comentarioAnterior }</Text> :
+                <Text>Esta tarjeta no tiene comentarios</Text>
+                
+                }
 
                 
             </View>
