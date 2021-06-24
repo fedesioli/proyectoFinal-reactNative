@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Touchable, FlatList, SafeAreaView, Modal } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import  Component from 'react-native';
-import TarjetaImportada from '../components/tarjetas'
+import TarjetaPapelera from '../components/tarjetas_papelera'
 import {getData} from '../api/randomUser'
 import {getDataAsync, storeDataAsync} from '../components/funciones_async'
 
@@ -16,9 +16,15 @@ class Papelera extends React.Component {
         }
     }
     componentDidMount(){
-        this.traerPapelera()
-        console.log(this.state.tarjetasEnPapelera)
+      this.unsubscribe = this.props.navigation.addListener('focus', ()=>{
         
+        this.traerPapelera()
+       
+        
+      });
+    }
+    componentWillUnmount(){
+      this.unsubscribe();
     }
     
     keyExtractor = (item, idx) => item.login.uuid.toString();
@@ -27,7 +33,7 @@ class Papelera extends React.Component {
     renderItem = ({item}) => {
         return(
               // <TouchableOpacity onPress={() => this.abrirModal(item)}>
-                <TarjetaImportada style={styles.tarjeta} datosPersona={item} borrarTarjeta={this.borrarTarjeta}/>
+                <TarjetaPapelera style={styles.tarjeta} datosPersona={item}/>
               // </TouchableOpacity>
         )
     }
@@ -35,7 +41,7 @@ class Papelera extends React.Component {
     async traerPapelera(){
         try{
               const resultado = await getDataAsync('Papelera');
-              this.setState({tarjetasEnPapelera: JSON.parse(resultado)});
+              this.setState({tarjetasEnPapelera: resultado});
               return resultado;   
         }catch(e){
               console.log(e)
@@ -51,7 +57,7 @@ render(){
         <Text>Papelera de reciclaje</Text>
 
         <FlatList
-      data={this.state.personasFavoritas}
+      data={this.state.tarjetasEnPapelera}
       renderItem={this.renderItem}
       keyExtractor={this.keyExtractor}
     />

@@ -103,9 +103,8 @@ borrarStorageCompleto = ()=> {
 borrarTarjeta = async (tarjeta) => {
   try{
     
-  // this.traerPapelera()
   const actualPapelera = await getDataAsync('Papelera')
-    console.log(actualPapelera)
+    console.log(actualPapelera.length)
   let resultado = this.state.personasFavoritas.filter( (item)=> {
     
     return item.login.uuid !== tarjeta.login.uuid;
@@ -119,7 +118,7 @@ let borrada = this.state.personasFavoritas.filter( (item)=> {
 let papelera = [...actualPapelera, ...borrada]
 storeDataAsync(papelera,'Papelera')
 this.setState({personasFavoritas: resultado, eliminadas: tarjeta });
-console.log(this.state.personasFavoritas.length)
+// console.log(this.state.personasFavoritas.length)
 }
  catch(e) {
 
