@@ -40,11 +40,11 @@ class TarjetaPapelera extends React.Component{
             <View className='tarjetaHijo'>
                 <Text>{this.props.datosPersona.name.first}</Text>
                 <Text>{this.props.datosPersona.name.last}</Text>
-                <Text>{this.props.datosPersona.dob.age} - 2/6/2001</Text> 
+                <Text>{this.props.datosPersona.dob.age}</Text> 
 
                 {this.state.seleccionado ? 
-                <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >No restaurar</Text> :
-                <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >Restaurar</Text>
+                <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >Deseleccionar</Text> :
+                <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >Seleccionar</Text>
                 }
                 {/* <Text onPress={this.props.borrarTarjeta.bind(this, this.props.datosPersona)}>Eliminar tarjeta</Text> */}
                 

@@ -89,7 +89,7 @@ class Papelera extends React.Component {
         
       }
 
-
+     
       
 render(){
 
@@ -99,13 +99,14 @@ render(){
 
         <Text>Papelera de reciclaje</Text>
 
-        <FlatList
+        <FlatList style={styles.FlatList}
       data={this.state.tarjetasEnPapelera}
       renderItem={this.renderItem}
       keyExtractor={this.keyExtractor}
     />
       <Text onPress={()=> this.limpiarPapelera()}>Limpiar Papelera</Text>
-      <Text onPress={()=> this.restaurarBorradas()}>Restaurar tarjetas seleccionadas</Text>
+      <Text onPress={()=> this.restaurarBorradas()}>Restaurar seleccionadas</Text>
+      <Text onPress={()=> this.sacarRestaurados(this.state.seleccionados, this.state.tarjetasEnPapelera)}>Borrar seleccionadas</Text>
      <View style={styles.hamburguerButton}>
         <TouchableOpacity onPress={()=> this.props.navigation.toggleDrawer()}>
               <Text  style={styles.burgerText}>=</Text>         
@@ -133,6 +134,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 20
+      },
+      FlatList:{
+        height: "90%"
       },
       
       hamburguerButton:{

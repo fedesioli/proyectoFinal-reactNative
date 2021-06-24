@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Button, Image, Modal, Switch, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, Modal, Switch, SafeAreaView, TextInput } from 'react-native';
 import {Component} from 'react-native';
+import { getDataAsync, storeDataAsync } from './funciones_async';
 
 
 
@@ -9,7 +10,8 @@ class TarjetaModificar extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-           tarjeta: ''
+            showModal: false,
+            comentario: {},
         }
     }
   
@@ -18,7 +20,24 @@ class TarjetaModificar extends React.Component{
         this.setState({tarjeta: this.props.datosPersona})
     }
  
-    
+    abrirModal = () =>{
+        this.setState({showModal: true})
+      }
+             
+      closeModal = () =>{
+        this.setState({showModal: false})
+      }
+
+      guardarComentario = async () =>{
+          console.log(this.props.datosPersona.login.uuid)
+        const comentariosAnteriores = await getDataAsync(this.props.datosPersona.login.uuid)
+        const arrayComentarios = comentariosAnteriores.concat(this.state.comentario)
+        storeDataAsync(arrayComentarios, this.props.datosPersona.login.uuid)
+        console.log(arrayComentarios)
+      }
+
+
+
     render(){
         
         return(
@@ -32,10 +51,9 @@ class TarjetaModificar extends React.Component{
                 <Text>{this.props.datosPersona.name.first}</Text>
                 <Text>{this.props.datosPersona.name.last}</Text>
                 <Text>{this.props.datosPersona.dob.age}</Text> 
-                <Text onPress={this.abrirModal}>Ver Detalles</Text>
-                <Text onPress={this.props.navigation.navigate('modificar', {tarjeta:this.props.datosPersona})}>Comentar</Text>
-
-                <Text onPress={this.props.borrarTarjeta.bind(this, this.props.datosPersona)}>Eliminar tarjeta</Text>
+                <Text onPress={this.abrirModal}>Comentar</Text>
+                
+                
                 
                 {/* <Switch style={{marginTop: 5}} ></Switch>    */}
                
@@ -45,19 +63,13 @@ class TarjetaModificar extends React.Component{
         <Modal transparent={true} animationType="slide"  visible={this.state.showModal}>
             <SafeAreaView style={styles.modalContainer}>
             <View style={styles.modalData}>
+               
                 <Text style={this.close} onPress={this.closeModal}>X</Text>
-                <Text>Detalles</Text>
-                <Image style={{width: 200,height:200}} source={{uri: this.props.datosPersona.picture.large}} alt="" ></Image>
+                <Image style={{width: 100,height:100}} source={{uri: this.props.datosPersona.picture.large}} alt="" ></Image>
                 <Text>{this.props.datosPersona.name.first}</Text>
-                <Text>{this.props.datosPersona.name.last}</Text>
-                <Text>{this.props.datosPersona.dob.age}</Text> 
-                <Text>{this.props.datosPersona.location.street.name}, {this.props.datosPersona.location.street.number}.</Text>
-                <Text>{this.props.datosPersona.location.city}, {this.props.datosPersona.location.country}</Text>
-                <Text>{this.props.datosPersona.location.postcode}</Text>
-                <Text>{this.props.datosPersona.email}</Text>
-                <Text>{this.props.datosPersona.phone}</Text> 
-                <Text>{this.props.datosPersona.registered.date}</Text> 
-                
+             
+                <TextInput  placeholder="Deja aca tu comentario" style={this.inputSearch}  onChangeText={(value)=> this.setState({comentario: value}) }  /> 
+                <Button title="Guardar comentario" onPress={this.guardarComentario.bind(this, this.props.datosPersona.uuid)}></Button>
                 
             </View>
             </SafeAreaView>
@@ -99,6 +111,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 10,
         right: 10,
+    
     }
     })
 export default TarjetaModificar;

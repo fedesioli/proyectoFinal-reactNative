@@ -110,7 +110,7 @@ import {getDataAsync, storeDataAsync} from '../components/funciones_async'
         
 
 
-        <FlatList
+        <FlatList style={styles.FlatList}
           data={this.state.personas}
           renderItem={this.renderItem}
           keyExtractor={this.keyExtractor}
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 20
+        
       },
       hamburguerButton:{
         width: 40,
@@ -159,6 +159,10 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
         fontSize: 20,
         color: 'black'
+      },
+      FlatList:{
+        paddingTop: "10%",
+        height: "94%"
       }
     })
     export default TarjetasApi;
