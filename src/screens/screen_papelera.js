@@ -47,6 +47,13 @@ class Papelera extends React.Component {
               console.log(e)
         }
       }
+
+    limpiarPapelera(){
+        storeDataAsync([],'Papelera')
+        this.setState({tarjetasEnPapelera:[]})
+      }
+
+
       
 render(){
 
@@ -61,6 +68,7 @@ render(){
       renderItem={this.renderItem}
       keyExtractor={this.keyExtractor}
     />
+      <Text onPress={()=> this.limpiarPapelera()}>Limpiar Papelera</Text>
      <View style={styles.hamburguerButton}>
         <TouchableOpacity onPress={()=> this.props.navigation.toggleDrawer()}>
               <Text  style={styles.burgerText}>=</Text>         

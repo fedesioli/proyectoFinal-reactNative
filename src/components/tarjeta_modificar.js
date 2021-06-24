@@ -4,23 +4,19 @@ import {Component} from 'react-native';
 
 
 
-class TarjetaImportada extends React.Component{
+class TarjetaModificar extends React.Component{
 
     constructor(props){
         super(props);
         this.state = {
-            showModal: false,
+           tarjeta: ''
         }
     }
   
         
-  abrirModal = () =>{
-    this.setState({showModal: true})
-  }
-         
-  closeModal = () =>{
-    this.setState({showModal: false})
-  }
+    componentDidMount(){
+        this.setState({tarjeta: this.props.datosPersona})
+    }
  
     
     render(){
@@ -105,4 +101,4 @@ const styles = StyleSheet.create({
         right: 10,
     }
     })
-export default TarjetaImportada;
+export default TarjetaModificar;
