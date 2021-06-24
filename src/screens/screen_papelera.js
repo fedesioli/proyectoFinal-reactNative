@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import  Component from 'react-native';
 import TarjetaImportada from '../components/tarjetas'
 import {getData} from '../api/randomUser'
+import {getDataAsync, storeDataAsync} from '../components/funciones_async'
 
 class Papelera extends React.Component {
     constructor(){
@@ -16,6 +17,7 @@ class Papelera extends React.Component {
     }
     componentDidMount(){
         this.traerPapelera()
+        console.log(this.state.tarjetasEnPapelera)
         
     }
     
@@ -32,7 +34,7 @@ class Papelera extends React.Component {
       
     async traerPapelera(){
         try{
-              const resultado = await AsyncStorage.getItem('Papelera');
+              const resultado = await getDataAsync('Papelera');
               this.setState({tarjetasEnPapelera: JSON.parse(resultado)});
               return resultado;   
         }catch(e){

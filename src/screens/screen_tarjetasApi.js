@@ -7,6 +7,7 @@ import Tarjeta from '../components/tarjetas'
 import {getDataAPI} from '../api/randomUser'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import {getDataAsync, storeDataAsync} from '../components/funciones_async'
 
 
 
@@ -44,14 +45,12 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
   async storeFavoritos(){
     try{
-      this.Importados(); 
-      // console.log(this.state.tarjetasImportadas.length)
-      // console.log(this.state.seleccionados.length)
-      const favoritos = [...this.state.tarjetasImportadas, ...this.state.seleccionados]
-      // console.log(favoritos.length)
-      const seleccionadosLength = "Se importaron las "+this.state.seleccionados.length+ " tarjetas seleccionadas" 
-      const jsonUsers = JSON.stringify(favoritos);
-      await AsyncStorage.setItem('Favoritos', jsonUsers)
+      const favoritosImportados = await getDataAsync('Favoritos')
+      const favoritos = [...favoritosImportados, ...this.state.seleccionados]
+      const seleccionadosLength = "Se importaron las " + this.state.seleccionados.length + " tarjetas seleccionadas" 
+  
+      storeDataAsync(favoritos, 'Favoritos')
+
       if(this.state.seleccionados.length != 0){
         this.sacarImportados(this.state.seleccionados, this.state.personas)
         Alert.alert(seleccionadosLength)
@@ -63,15 +62,15 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
       console.log(e)
     }
   }
-  async Importados(){
-    try{
-          const resultado = await AsyncStorage.getItem('Favoritos');
-          this.setState({tarjetasImportadas: JSON.parse(resultado)});
-          return resultado;   
-    }catch(e){
-          console.log(e)
-    }
-}
+//   async Importados(){
+//     try{
+//           const resultado = await AsyncStorage.getItem('Favoritos');
+//           this.setState({tarjetasImportadas: JSON.parse(resultado)});
+//           return resultado;   
+//     }catch(e){
+//           console.log(e)
+//     }
+// }
 
   abrirModal(item){
     this.setState({showModal: true, itemModal: item})

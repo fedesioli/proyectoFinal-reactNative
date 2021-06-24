@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import  Component from 'react-native';
 import TarjetaImportada from '../components/tarjetas_importadas'
 import {getData} from '../api/randomUser'
+import {getDataAsync, storeDataAsync} from '../components/funciones_async'
 
 class Importadas extends React.Component {
     constructor(){
@@ -99,28 +100,40 @@ borrarStorageCompleto = ()=> {
   
 }
 
-borrarTarjeta = (tarjeta) =>{
-  
-  // console.log(tarjeta.login.uuid)
+borrarTarjeta = async (tarjeta) => {
+  try{
+    
+  // this.traerPapelera()
+  const actualPapelera = await getDataAsync('Papelera')
+    console.log(actualPapelera)
   let resultado = this.state.personasFavoritas.filter( (item)=> {
     
     return item.login.uuid !== tarjeta.login.uuid;
 })
-this.updateFavoritos(resultado);
+storeDataAsync(resultado, 'Favorito')
+
+let borrada = this.state.personasFavoritas.filter( (item)=> {
+    
+  return item.login.uuid === tarjeta.login.uuid;
+})
+let papelera = [...actualPapelera, ...borrada]
+storeDataAsync(papelera,'Papelera')
 this.setState({personasFavoritas: resultado, eliminadas: tarjeta });
-// this.cargarPapelera();
 console.log(this.state.personasFavoritas.length)
 }
+ catch(e) {
 
-// async traerPapelera(){
-//   try{
-//         const resultado = await AsyncStorage.getItem('Papelera');
-//         this.setState({tarjetasEnPapeleraPrevias: JSON.parse(resultado)});
-//         return resultado;   
-//   }catch(e){
-//         console.log(e)
-//   }
-// }
+ }}
+
+async traerPapelera(){
+  try{
+        const resultadoPapelera = await AsyncStorage.getItem('Papelera');
+        this.setState({tarjetasEnPapeleraPrevias: JSON.parse(resultadoPapelera)});
+        return resultadoPapelera;   
+  }catch(e){
+        console.log(e)
+  }
+}
 
 
    

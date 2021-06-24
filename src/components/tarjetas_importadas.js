@@ -35,7 +35,7 @@ class TarjetaImportada extends React.Component{
             <View className='tarjetaHijo'>
                 <Text>{this.props.datosPersona.name.first}</Text>
                 <Text>{this.props.datosPersona.name.last}</Text>
-                <Text>22 - 2/6/2001</Text> 
+                <Text>{this.props.datosPersona.dob.age}</Text> 
                 <Text onPress={this.abrirModal}>Ver Detalles</Text>
                 <Text onPress={this.props.borrarTarjeta.bind(this, this.props.datosPersona)}>Eliminar tarjeta</Text>
                 
