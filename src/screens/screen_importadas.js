@@ -17,6 +17,11 @@ import TarjetaImportada from '../components/tarjetas_importadas'
 import {getData} from '../api/randomUser'
 import {getDataAsync, storeDataAsync} from '../components/funciones_async'
 
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack'; 
+import {createDrawerNavigator} from '@react-navigation/drawer'; 
+
+
 class Importadas extends React.Component {
     constructor(){
         super();
@@ -102,27 +107,28 @@ borrarStorageCompleto = ()=> {
 
 borrarTarjeta = async (tarjeta) => {
   try{
-    
+    //agarro la papelera
   const actualPapelera = await getDataAsync('Papelera')
-    console.log(actualPapelera.length)
+    //armo array sin el elegido
   let resultado = this.state.personasFavoritas.filter( (item)=> {
     
     return item.login.uuid !== tarjeta.login.uuid;
 })
-storeDataAsync(resultado, 'Favorito')
-
+ // guardo nueva info en async favoritos
+storeDataAsync(resultado, 'Favoritos')
+  // busco array individual de la borrada
 let borrada = this.state.personasFavoritas.filter( (item)=> {
     
   return item.login.uuid === tarjeta.login.uuid;
 })
+  // concateno y guardo la nueva papelera
 let papelera = [...actualPapelera, ...borrada]
 storeDataAsync(papelera,'Papelera')
-this.setState({personasFavoritas: resultado, eliminadas: tarjeta });
-// console.log(this.state.personasFavoritas.length)
-}
- catch(e) {
 
- }}
+this.setState({personasFavoritas: resultado});
+
+} catch(e) {
+  }}
 
 async traerPapelera(){
   try{

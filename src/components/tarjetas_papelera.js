@@ -9,10 +9,21 @@ class TarjetaPapelera extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            
+            seleccionado: false
         }
     }
   
+    ifSeleccionado = () => {
+        
+        if(this.state.seleccionado === false){
+            this.props.agregarASeleccionados(this.props.datosPersona)
+            this.setState({seleccionado: true,})
+        } else {
+            this.props.deseleccionar(this.props.datosPersona.login.uuid)
+            this.setState({seleccionado: false,})
+        }
+        // console.log(this.state.seleccionado)
+    }
         
     
     
@@ -30,6 +41,11 @@ class TarjetaPapelera extends React.Component{
                 <Text>{this.props.datosPersona.name.first}</Text>
                 <Text>{this.props.datosPersona.name.last}</Text>
                 <Text>{this.props.datosPersona.dob.age} - 2/6/2001</Text> 
+
+                {this.state.seleccionado ? 
+                <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >No restaurar</Text> :
+                <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >Restaurar</Text>
+                }
                 {/* <Text onPress={this.props.borrarTarjeta.bind(this, this.props.datosPersona)}>Eliminar tarjeta</Text> */}
                 
                 {/* <Switch style={{marginTop: 5}} ></Switch>    */}

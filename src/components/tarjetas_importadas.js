@@ -2,6 +2,11 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button, Image, Modal, Switch, SafeAreaView } from 'react-native';
 import {Component} from 'react-native';
 
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack'; 
+import {createDrawerNavigator} from '@react-navigation/drawer'; 
+
+
 
 
 class TarjetaImportada extends React.Component{
@@ -37,7 +42,7 @@ class TarjetaImportada extends React.Component{
                 <Text>{this.props.datosPersona.name.last}</Text>
                 <Text>{this.props.datosPersona.dob.age}</Text> 
                 <Text onPress={this.abrirModal}>Ver Detalles</Text>
-                <Text onPress={this.props.navigation.navigate('modificar', {tarjeta:this.props.datosPersona})}>Comentar</Text>
+                {/* <Text onPress={()=>this.props.navigation.navigate('modificar')}>Comentar</Text> */}
 
                 <Text onPress={this.props.borrarTarjeta.bind(this, this.props.datosPersona)}>Eliminar tarjeta</Text>
                 

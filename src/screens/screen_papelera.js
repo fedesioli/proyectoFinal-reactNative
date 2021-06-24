@@ -11,7 +11,8 @@ class Papelera extends React.Component {
     constructor(){
         super();
         this.state = {
-            tarjetasEnPapelera: []
+            tarjetasEnPapelera: [],
+            seleccionados: []
     
         }
     }
@@ -33,7 +34,7 @@ class Papelera extends React.Component {
     renderItem = ({item}) => {
         return(
               // <TouchableOpacity onPress={() => this.abrirModal(item)}>
-                <TarjetaPapelera style={styles.tarjeta} datosPersona={item}/>
+                <TarjetaPapelera style={styles.tarjeta} datosPersona={item} agregarASeleccionados={this.agregarASeleccionados} deseleccionar={this.deseleccionar}/>
               // </TouchableOpacity>
         )
     }
@@ -48,9 +49,44 @@ class Papelera extends React.Component {
         }
       }
 
-    limpiarPapelera(){
+    async limpiarPapelera(){
         storeDataAsync([],'Papelera')
         this.setState({tarjetasEnPapelera:[]})
+      }
+
+      async restaurarBorradas(){
+        try{ 
+          // restauro las tarjetas
+          const favoritas = await getDataAsync('Favoritas')
+          const tarjetasRestaurar = [...favoritas, ...this.state.seleccionados]
+          storeDataAsync(tarjetasRestaurar, 'Favoritos')
+          // borro las restauradas de la papelera, cambio el estado y el async.
+          this.sacarRestaurados(this.state.seleccionados, this.state.tarjetasEnPapelera)
+
+
+        } catch(e){}
+      }
+
+      sacarRestaurados(seleccionados, personas){
+        const myArrayFiltered = personas.filter(item => !seleccionados.includes(item))
+        storeDataAsync(myArrayFiltered,'Papelera')
+        this.setState({tarjetasEnPapelera: myArrayFiltered})
+      }
+
+
+
+      agregarASeleccionados = (item) => {
+        let seleccionados2 = this.state.seleccionados.concat(item)
+        this.setState({seleccionados:seleccionados2})
+      }
+      deseleccionar = (idTarjeta) => {
+        let resultado = this.state.seleccionados.filter( (item)=> {
+        
+          return item.login.uuid !== idTarjeta;
+          
+      })
+        this.setState({seleccionados: resultado})
+        
       }
 
 
@@ -69,6 +105,7 @@ render(){
       keyExtractor={this.keyExtractor}
     />
       <Text onPress={()=> this.limpiarPapelera()}>Limpiar Papelera</Text>
+      <Text onPress={()=> this.restaurarBorradas()}>Restaurar tarjetas seleccionadas</Text>
      <View style={styles.hamburguerButton}>
         <TouchableOpacity onPress={()=> this.props.navigation.toggleDrawer()}>
               <Text  style={styles.burgerText}>=</Text>         
