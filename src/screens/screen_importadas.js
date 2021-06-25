@@ -113,7 +113,7 @@ let papelera = [...actualPapelera, ...borrada]
 storeDataAsync(papelera,'Papelera')
 
   // Actualizamos estado
-this.setState({personasFavoritas: resultado});
+this.setState({personasFavoritas: resultado, personasFavoritasBackup: resultado});
 } catch(e) {
   }}
 
