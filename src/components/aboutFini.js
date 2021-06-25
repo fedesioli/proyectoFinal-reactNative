@@ -15,9 +15,6 @@ import { StyleSheet,
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import  Component from 'react-native';
 import TarjetaImportada from '../components/tarjetas_importadas'
-import AboutFini from '../components/aboutFini';
-import AboutFran from '../components/aboutFran';
-import AboutFede from '../components/aboutFede';
 import {getData} from '../api/randomUser'
 import {getDataAsync, storeDataAsync} from '../components/funciones_async'
 
@@ -27,7 +24,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import TarjetaModificar from '../components/tarjeta_modificar';
 
 
-class AboutUs extends React.Component {
+class AboutFini extends React.Component {
     constructor(){
         super();
         this.state = {
@@ -62,25 +59,45 @@ render(){
   })
 
     return (
-        <SafeAreaView>
-        <View style={styles.tarjetasContainer}>
-        <View style={styles.tarjetasContainerAbout}>
-
-          <AboutFini/>
-          <AboutFran/>
-          <AboutFede/>
+        
+        
 
      
+        <TouchableWithoutFeedback onPress={this.verTarjetas}>
+        <View >
+            <Animated.View style={{
+              width: 60,
+              height: 100,
+              backgroundColor: 'red',
+              backfaceVisibility: false,
+              position: 'absolute',
+              borderRadius: 10,
+              transform: [
+                {rotateX: rotA}
+              ]
+            }}/>
+
+           
+            <Animated.View style={{
+              width: 60,
+              height: 100,
+              backgroundColor: 'gray',
+              borderRadius: 10,
+              backfaceVisibility: false,
+              position: 'absolute',
+              justifyContent: 'center',
+              transform: [
+                {rotateX: rotB}
+              ]
+            }}>
+              <Text>Fini Quirno</Text>
+            </Animated.View>
         </View>
-        
-            <View style={styles.hamburguerButton}>
-                <TouchableOpacity onPress={()=> this.props.navigation.toggleDrawer()}>
-                <Text  style={styles.burgerText}>=</Text>         
-                </TouchableOpacity>           
-            </View>
+        </TouchableWithoutFeedback>         
          
-        </View>
-        </SafeAreaView>
+        
+        
+         
 
     )
 }
@@ -143,4 +160,4 @@ const styles = StyleSheet.create({
     })
     
 
-export default AboutUs
+export default AboutFini
