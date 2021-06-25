@@ -112,7 +112,7 @@ import {getDataAsync, storeDataAsync} from '../components/funciones_async'
       .then(tarjetas => {
         this.setState({personas: [...this.state.personas, ... tarjetas]})
       })  
-      Alert.alert('Se importaron ' + this.state.verMas + ' tarjetas')
+      Alert.alert('Se agregaron ' + this.state.verMas + ' tarjetas de la api')
     
     }catch(e){}
   }
