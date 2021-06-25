@@ -9,7 +9,8 @@ import { StyleSheet,
     FlatList,
     SafeAreaView,
     Modal,
-    Animated
+    Animated,
+    Alert
          } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import  Component from 'react-native';
@@ -79,17 +80,6 @@ async storeFavoritosVacio(){
   }
 }
 
-// Aca hacemos un update de los favoritos
-// async updateFavoritos(resultado){
-//   try{
-   
-//     const jsonUsers = JSON.stringify(resultado);
-//     await AsyncStorage.setItem('Favoritos', jsonUsers)
-//   }catch(e){
-//     console.log(e)
-//   }
-// }
-
 
 // Aca vaciamos el storage completo
 borrarStorageCompleto = ()=> {
@@ -111,6 +101,7 @@ borrarTarjeta = async (tarjeta) => {
     return item.login.uuid !== tarjeta.login.uuid;
 })
  // guardo nueva info en async favoritos
+ Alert.alert('Se elimino a ' + tarjeta.name.first)
 storeDataAsync(resultado, 'Favoritos')
   // busco array individual de la borrada
 let borrada = this.state.personasFavoritas.filter( (item)=> {
@@ -123,7 +114,6 @@ storeDataAsync(papelera,'Papelera')
 
   // Actualizamos estado
 this.setState({personasFavoritas: resultado});
-
 } catch(e) {
   }}
 

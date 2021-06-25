@@ -72,7 +72,6 @@ class Papelera extends React.Component {
         const myArrayFiltered = personas.filter(item => !seleccionados.includes(item))
         storeDataAsync(myArrayFiltered,'Papelera')
         this.setState({tarjetasEnPapelera: myArrayFiltered})
-        Alert.alert('Se borraron definitivamente las tarjetas seleccionadas')
       }
 
 
