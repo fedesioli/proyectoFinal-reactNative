@@ -130,7 +130,7 @@ import {getDataAsync, storeDataAsync} from '../components/funciones_async'
           keyExtractor={this.keyExtractor}
         />
         <TextInput style={styles.inputSearch} placeholder="Cuantas tarjetas desea agregar?" onChangeText={text => this.setState({verMas: text})}></TextInput>
-        <Text style={styles.importar} onPress= {this.cargarNuevasTarjetas.bind(this)}>Ver Mas</Text>
+        <Text style={styles.importar} onPress= {this.cargarNuevasTarjetas.bind(this)}>Agregar tajetas</Text>
         <Text style={styles.importar} onPress= {this.storeFavoritos.bind(this)}>Importar</Text>
           <View style={styles.hamburguerButton}>
         <TouchableOpacity onPress={()=> this.props.navigation.toggleDrawer()}>
