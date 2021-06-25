@@ -10,7 +10,8 @@ import { StyleSheet,
     SafeAreaView,
     Modal,
     Animated,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Image
          } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import  Component from 'react-native';
@@ -66,21 +67,24 @@ render(){
         <TouchableWithoutFeedback onPress={this.verTarjetas}>
         <View >
             <Animated.View style={{
-              width: 60,
-              height: 100,
-              backgroundColor: 'red',
+              width: 90,
+              height: 200,
+              backgroundColor: 'gray',
               backfaceVisibility: false,
               position: 'absolute',
+              justifyContent: 'center',
+              alignItems: 'center',
               borderRadius: 10,
               transform: [
                 {rotateX: rotA}
               ]
-            }}/>
-
+            }}>
+            <Text style={{fontSize:40}}>?</Text> 
+           </Animated.View>
            
             <Animated.View style={{
-              width: 60,
-              height: 100,
+              width: 90,
+              height: 200,
               backgroundColor: 'gray',
               borderRadius: 10,
               backfaceVisibility: false,
@@ -90,7 +94,10 @@ render(){
                 {rotateX: rotB}
               ]
             }}>
-              <Text>Fini Quirno</Text>
+               <Image style={{width: 80,height:80,marginBottom: 20}} source={require('../assets/Images/fini.jpg')} alt="" ></Image>
+              <Text style={{marginBottom:10}}>Fini Quirno</Text>
+              <Text style={{marginBottom:10}}>20 años</Text>
+              <Text>UdeSa</Text>
             </Animated.View>
         </View>
         </TouchableWithoutFeedback>         

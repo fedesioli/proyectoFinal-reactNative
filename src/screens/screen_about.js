@@ -62,24 +62,25 @@ render(){
   })
 
     return (
-        <SafeAreaView>
+        <SafeAreaView >
+          <Text style={{textAlign: 'center', fontSize: 20, marginTop: '4%'}}>Conoce a nuestros desarrolladores</Text>
         <View style={styles.tarjetasContainer}>
-        <View style={styles.tarjetasContainerAbout}>
+        
 
           <AboutFini/>
           <AboutFran/>
           <AboutFede/>
 
      
-        </View>
         
+         
+        
+        </View>
             <View style={styles.hamburguerButton}>
                 <TouchableOpacity onPress={()=> this.props.navigation.toggleDrawer()}>
                 <Text  style={styles.burgerText}>=</Text>         
                 </TouchableOpacity>           
             </View>
-         
-        </View>
         </SafeAreaView>
 
     )
@@ -87,16 +88,15 @@ render(){
 }
 
 const styles = StyleSheet.create({
-    homePadre: {        
-        width: '100%'
-      },
-      tarjeta:{
-        padding:50,
-      },
+    
       tarjetasContainer: {
+        marginTop: '15%',
+        marginLeft: '43%',
         width: '100%',
+        flex:1,
+        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
       },
       
       hamburguerButton:{
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',
-        top: 0,
+        top: 50,
         left: 10,
         borderColor: 'black',
         borderWidth: 2
@@ -117,24 +117,13 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: 'black'
       },
-      inputSearch: {
-        margin:10,
-        justifyContent: 'center',
-        alignItems: "center",
-        backgroundColor: "white",
-        borderColor: 'black',
-        borderWidth: 1,
-        borderRadius: 3,
-        width:150,
-        height:35,
-
-      },
+     
       titulo: {
         fontSize:20,
       },
       tarjetasContainerAbout:{
         flex: 1,
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         flexDirection: 'row',
         width: '80%',
         marginTop: 100,
