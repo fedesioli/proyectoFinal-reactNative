@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Touchable, FlatLis
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import  Component from 'react-native';
 import Tarjeta from '../components/tarjetas'
-import {getDataAPI} from '../api/randomUser'
+import {getDataAPI, verMasAPI} from '../api/randomUser'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import {getDataAsync, storeDataAsync} from '../components/funciones_async'
@@ -23,8 +23,8 @@ import {getDataAsync, storeDataAsync} from '../components/funciones_async'
       showModal: false,
       itemModal: null,
       tarjetasImportadas: [],
-      favoritosCompleto:[]
-
+      favoritosCompleto:[],
+      verMas: ''
     }
 }
 
@@ -104,6 +104,18 @@ import {getDataAsync, storeDataAsync} from '../components/funciones_async'
     const myArrayFiltered = personas.filter(item => !seleccionados.includes(item))
     this.setState({personas: myArrayFiltered})
   }
+
+
+  verMasApi = async () => {
+    try{
+      verMasAPI(this.state.verMas)
+      .then(tarjetas => {
+        this.setState({personas: [...this.state.personas, ... tarjetas]})
+      })  
+    {
+      }
+    }catch(e){}
+  }
   
   render(){
     
@@ -117,6 +129,8 @@ import {getDataAsync, storeDataAsync} from '../components/funciones_async'
           renderItem={this.renderItem}
           keyExtractor={this.keyExtractor}
         />
+        <TextInput style={styles.inputSearch} placeholder="Cuantas tarjetas desea agregar?" onChangeText={text => this.setState({verMas: text})}></TextInput>
+        <Text style={styles.importar} onPress= {this.verMasApi.bind(this)}>Ver Mas</Text>
         <Text style={styles.importar} onPress= {this.storeFavoritos.bind(this)}>Importar</Text>
           <View style={styles.hamburguerButton}>
         <TouchableOpacity onPress={()=> this.props.navigation.toggleDrawer()}>
@@ -143,6 +157,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         
+      },
+      inputSearch: {
+        margin:10,
+        justifyContent: 'center',
+        alignItems: "center",
+        backgroundColor: "white",
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 3,
+        width:150,
+        height:35,
+
       },
       hamburguerButton:{
         width: 40,
