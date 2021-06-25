@@ -70,12 +70,16 @@ class TarjetaModificar extends React.Component{
             <SafeAreaView style={styles.modalContainer}>
             <View style={styles.modalData}>
                
-                <Text style={this.close} onPress={this.closeModal}>X</Text>
-                <Image style={{width: 100,height:100}} source={{uri: this.props.datosPersona.picture.large}} alt="" ></Image>
+                <Text style={styles.close} onPress={this.closeModal}>X</Text>
+                <Text style={styles.detallesTxt}>Deja tu comentario</Text>
+                <Image style={{width: 200,height:200}} source={{uri: this.props.datosPersona.picture.large}} alt="" ></Image>
+                <View style={styles.bodyTxt} >
+
                 <Text>{this.props.datosPersona.name.last}, {this.props.datosPersona.name.first}</Text>
                 <Text>Comentarios anteriores:</Text>
                 <Text>{this.state.comentarioAnterior}</Text>
-                <TextInput  placeholder="Deja aca tu comentario" style={this.inputSearch}  onChangeText={(value)=> this.setState({comentario: value}) }  /> 
+                </View>
+                <TextInput  placeholder="Deja aca tu comentario" style={styles.inputSearch}  onChangeText={(value)=> this.setState({comentario: value}) }  /> 
                 <Button title="Guardar comentario" onPress={this.guardarComentario.bind(this, this.props.datosPersona.uuid)}></Button>
                 
             </View>
@@ -99,12 +103,15 @@ const styles = StyleSheet.create({
         borderRadius: 20,
 
       },
-    modalData: {
+      modalData: {
         backgroundColor:'white',
          width: '80%',
          alignItems: 'center',
          justifyContent: 'center',
-         height: 400,
+         height: '70%',
+         borderColor: 'black',
+         borderWidth: 2,
+         borderRadius: 5
          
     },
     modalContainer: {
@@ -112,16 +119,42 @@ const styles = StyleSheet.create({
          alignItems: 'center',
          justifyContent: 'center',
          flex: 1,
-         height: '50%'
+         height: '50%',
+         backgroundColor: 'rgba(201,201,201, .5)'
     },
     close: {
         position: 'absolute',
         top: 10,
-        right: 10,
-    
+        right: 15,
+        fontSize: 20
+    },
+    detallesTxt:{
+        fontSize: 20,
+        position: 'absolute',
+        top: '5%'
+
+    },
+    bodyTxt:{
+        textAlign: 'left',
+        fontSize: 17,
+        marginBottom: '5%',
+        marginTop: '5%',
+        width: '80%'
     },
     seleccionar:{
         marginTop: 20,
-    }
+    },
+    inputSearch: {
+        margin:10,
+        justifyContent: 'center',
+        alignItems: "center",
+        backgroundColor: "white",
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 3,
+        width:'50%',
+        height:35,
+
+      },
     })
 export default TarjetaModificar;

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Touchable, FlatList, SafeAreaView, Modal } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Touchable, FlatList, SafeAreaView, Modal,Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import  Component from 'react-native';
 import TarjetaPapelera from '../components/tarjetas_papelera'
@@ -34,9 +34,9 @@ class Papelera extends React.Component {
     
     renderItem = ({item}) => {
         return(
-              // <TouchableOpacity onPress={() => this.abrirModal(item)}>
+             
                 <TarjetaPapelera style={styles.tarjeta} datosPersona={item} agregarASeleccionados={this.agregarASeleccionados} deseleccionar={this.deseleccionar}/>
-              // </TouchableOpacity>
+              
         )
     }
       
@@ -53,6 +53,7 @@ class Papelera extends React.Component {
     async limpiarPapelera(){
         storeDataAsync([],'Papelera')
         this.setState({tarjetasEnPapelera:[]})
+        Alert.alert('Se eliminaron todos los datos de la papelera')
       }
 
       async restaurarBorradas(){
@@ -63,8 +64,7 @@ class Papelera extends React.Component {
           storeDataAsync(tarjetasRestaurar, 'Favoritos')
           // borro las restauradas de la papelera, cambio el estado y el async.
           this.sacarRestaurados(this.state.seleccionados, this.state.tarjetasEnPapelera)
-
-
+          Alert.alert('Se restauraron las tarjetas seleccionadas')
         } catch(e){}
       }
 
@@ -72,6 +72,7 @@ class Papelera extends React.Component {
         const myArrayFiltered = personas.filter(item => !seleccionados.includes(item))
         storeDataAsync(myArrayFiltered,'Papelera')
         this.setState({tarjetasEnPapelera: myArrayFiltered})
+        Alert.alert('Se borraron definitivamente las tarjetas seleccionadas')
       }
 
 
@@ -107,8 +108,8 @@ render(){
     />
 
     <View style={styles.botonesAbajo}>
-      <Text  style={styles.botonAbajo} onPress={()=> this.restaurarBorradas()}>Restaurar seleccionadas</Text>
-      <Text style={styles.botonAbajo} onPress={()=> this.sacarRestaurados(this.state.seleccionados, this.state.tarjetasEnPapelera)}>Borrar seleccionadas</Text>
+      <Text  style={styles.botonAbajo} onPress={()=> this.restaurarBorradas()}>Restaurar seleccion</Text>
+      <Text style={styles.botonAbajo} onPress={()=> this.sacarRestaurados(this.state.seleccionados, this.state.tarjetasEnPapelera)}>Borrar seleccion</Text>
       <Text style={styles.botonAbajo} onPress={()=> this.limpiarPapelera()}>Limpiar Papelera</Text>
     </View>
 
