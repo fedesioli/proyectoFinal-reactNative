@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     
       tarjetasContainer: {
         marginTop: '15%',
-        marginLeft: '43%',
+        marginLeft: '39%',
         width: '100%',
         flex:1,
         flexDirection: 'row',
