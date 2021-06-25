@@ -15,13 +15,15 @@ class Tarjeta extends React.Component{
         }
     }
   
-        
+      
     ifSeleccionado = () => {
-        
+        // Preguntamos si la tarjeta no estaba seleccionada
         if(this.state.seleccionado === false){
+        //Si no lo estaba corremos la funcion agregar a seleccionados y actualizamos el estado 
             this.props.agregarASeleccionados(this.props.datosPersona)
             this.setState({seleccionado: true,})
         } else {
+        //Si estaba seleccionada la deseleccionamos y actualizamos el estado 
             this.props.deseleccionar(this.props.datosPersona.login.uuid)
             this.setState({seleccionado: false,})
         }
@@ -49,7 +51,8 @@ class Tarjeta extends React.Component{
                 <FontAwesomeIcon icon={FaCheckCircle} onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)}/> :
                 <FontAwesomeIcon icon={FaTimesCircle} onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)}/>
                 } */}
-
+                
+                {/* Chequeamos el estado para mostrar el boton de seleccionar o deseleccionar segun corresponda */}
                 {this.state.seleccionado ? 
                 <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >Deseleccionar</Text> :
                 <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >Seleccionar</Text>

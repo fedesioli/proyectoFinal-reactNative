@@ -27,16 +27,26 @@ import {getDataAsync, storeDataAsync} from '../components/funciones_async'
 
     }
 }
+
+  // Aca cargamos data de la api
   componentDidMount(){
-    getDataAPI()
+    this.unsubscribe = this.props.navigation.addListener('focus', ()=>{
+      
+      getDataAPI()
     .then(results => {
       // console.log(results);
       this.setState({personas: results});
     })
+      
+    });
   }
-
+  componentWillUnmount(){
+    this.unsubscribe();
+  }
+ 
   keyExtractor = (item, idx) => item.login.uuid.toString();
 
+  // Aca definimos el compenente que se imprime en el flatlist con los datos de cada tarjeta como parametro
   renderItem = ({item}) => {
     return(
       
@@ -45,49 +55,51 @@ import {getDataAsync, storeDataAsync} from '../components/funciones_async'
     )
   }
 
+  // Aca importamos las tarjetas seleccionadas
   async storeFavoritos(){
     try{
+      // Primero traemos del storage las que ya estaban iomportadas y hacemos un nuevo array junto con las seleccionadas
       const favoritosImportados = await getDataAsync('Favoritos')
       const favoritos = [...favoritosImportados, ...this.state.seleccionados]
-      const seleccionadosLength = "Se importaron las " + this.state.seleccionados.length + " tarjetas seleccionadas" 
-  
+      // Guardamos en el storage con la key favoritos
       storeDataAsync(favoritos, 'Favoritos')
-
+      // Alert para saber cuantas personas se importaron
+      const seleccionadosLength = "Se importaron las " + this.state.seleccionados.length + " tarjetas seleccionadas" 
       if(this.state.seleccionados.length != 0){
         this.sacarImportados(this.state.seleccionados, this.state.personas)
         Alert.alert(seleccionadosLength)
       }else{
         Alert.alert('No se selecciono ninguna tarjeta')
       }
+      // Vaciamos seleccionados una vez importadas las tarjetas
       this.setState({seleccionados: []})
     }catch(e){
       console.log(e)
     }
   }
 
-
-  abrirModal(item){
-    this.setState({showModal: true, itemModal: item})
-    console.log(item)
-    console.log(this.state.itemModal)
-  }
-
+// Aca agregamos las tarjetas a seleccionados en el estado
   agregarASeleccionados = (item) => {
+    // Primero juntamos los seleccionados que ya estaban en el estado con el nuevo item a seleccionar
     let todosLosSeleccionados = this.state.seleccionados.concat(item)
+    // Actualizamos el estado con todos 
     this.setState({seleccionados: todosLosSeleccionados})
     // console.log(this.state.seleccionados.length)
   }
-
+// Aca sacamos de seleccionados a la tarjeta que querramos deseleccionar
   deseleccionar = (idTarjeta) => {
+    // Primero filtramos los seleccionados para retornar los que tienen id distinto
     let resultado = this.state.seleccionados.filter( (item)=> {
     
       return item.login.uuid !== idTarjeta;
       
   })
+  // Actualizamos el estado filtrado
     this.setState({seleccionados: resultado})
     // console.log(this.state.seleccionados.length)
   }
 
+  // Aca sacamos las tarjetas recien seleccionadas de la pantalla de la api para no importarlas dos veces
   sacarImportados(seleccionados, personas){
     const myArrayFiltered = personas.filter(item => !seleccionados.includes(item))
     this.setState({personas: myArrayFiltered})
