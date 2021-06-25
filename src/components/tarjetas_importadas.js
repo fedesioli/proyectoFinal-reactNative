@@ -21,18 +21,20 @@ class TarjetaImportada extends React.Component{
         }
     }
   
-        
+    // Aca abrimos el modal de detalles
   abrirModal = async () =>{
+    // Traemos los comentarios de la tarjeta guardados en el async
     const comentariosViejos = await getDataAsync(this.props.datosPersona.login.uuid)
-    
+    // Nos fijamos si tiene comentarios guardados
         if(comentariosViejos != ""){
-
+    // Si tiene gaurdamos el comentario en el estado y abrimos el modal
             this.setState({showModal: true, comentarioAnterior: comentariosViejos})
         }else{
+    // Si no tiene solo abrimos el modal y en el estado decimos que no tiene comentarios
             this.setState({showModal: true, comentarioAnteriorShow: false})
         }
   }
-         
+// Aca cerramos el modal
   closeModal = () =>{
     this.setState({showModal: false})
   }
@@ -50,11 +52,15 @@ class TarjetaImportada extends React.Component{
             <View className='tarjetaHijo'>
                 <Text>{this.props.datosPersona.name.first}</Text>
                 <Text>{this.props.datosPersona.name.last}</Text>
-                <Text>{this.props.datosPersona.dob.age}</Text> 
+                <Text>{this.props.datosPersona.dob.age} años</Text> 
+
+                <View style={styles.seleccionar}>
+
                 <Text onPress={this.abrirModal}>Ver Detalles</Text>
             
 
                 <Text onPress={this.props.borrarTarjeta.bind(this, this.props.datosPersona)}>Eliminar tarjeta</Text>
+                </View>
                 
                 {/* <Switch style={{marginTop: 5}} ></Switch>    */}
                
@@ -64,23 +70,28 @@ class TarjetaImportada extends React.Component{
         <Modal transparent={true} animationType="slide"  visible={this.state.showModal}>
             <SafeAreaView style={styles.modalContainer}>
             <View style={styles.modalData}>
-                <Text style={this.close} onPress={this.closeModal}>X</Text>
-                <Text>Detalles</Text>
+                <Text style={styles.close} onPress={this.closeModal}>X</Text>
+                <Text style={styles.detallesTxt}>Detalles</Text>
                 <Image style={{width: 200,height:200}} source={{uri: this.props.datosPersona.picture.large}} alt="" ></Image>
+                <View style={styles.bodyTxt} >  
                 <Text>{this.props.datosPersona.name.last}, {this.props.datosPersona.name.first}</Text>
-                <Text>{this.props.datosPersona.dob.age}</Text> 
+                <Text>{this.props.datosPersona.dob.age} años</Text> 
                 <Text>{this.props.datosPersona.location.street.name}, {this.props.datosPersona.location.street.number}.</Text>
                 <Text>{this.props.datosPersona.location.city}, {this.props.datosPersona.location.country}</Text>
                 <Text>{this.props.datosPersona.location.postcode}</Text>
                 <Text>{this.props.datosPersona.email}</Text>
                 <Text>{this.props.datosPersona.phone}</Text> 
                 <Text>{this.props.datosPersona.registered.date}</Text> 
+                </View>
+                <View style={styles.seleccionar}>
+                {/* Aca hacemos un if para ver si mostramos comentarios o no */}
                 {this.state.comentarioAnteriorShow ? 
                 
                 <Text>Comentarios: {this.state.comentarioAnterior }</Text> :
                 <Text>Esta tarjeta no tiene comentarios</Text>
                 
-                }
+                 }
+                </View>
 
                 
             </View>
@@ -109,7 +120,10 @@ const styles = StyleSheet.create({
          width: '80%',
          alignItems: 'center',
          justifyContent: 'center',
-         height: 400,
+         height: '70%',
+         borderColor: 'black',
+         borderWidth: 2,
+         borderRadius: 5
          
     },
     modalContainer: {
@@ -117,12 +131,34 @@ const styles = StyleSheet.create({
          alignItems: 'center',
          justifyContent: 'center',
          flex: 1,
-         height: '50%'
+         height: '50%',
+         backgroundColor: 'rgba(201,201,201, .5)'
     },
     close: {
         position: 'absolute',
         top: 10,
-        right: 10,
+        right: 15,
+        fontSize: 20
+    },
+    detallesTxt:{
+        fontSize: 20,
+        position: 'absolute',
+        top: '5%'
+
+    },
+    bodyTxt:{
+        textAlign: 'left',
+        fontSize: 17,
+        marginBottom: '5%',
+        marginTop: '5%',
+        width: '80%'
+    },
+    seleccionar:{
+        marginTop: 20
+    },
+    seleccionar:{
+        marginTop: 20,
     }
+
     })
 export default TarjetaImportada;

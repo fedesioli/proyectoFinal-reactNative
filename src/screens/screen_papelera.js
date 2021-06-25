@@ -6,6 +6,7 @@ import  Component from 'react-native';
 import TarjetaPapelera from '../components/tarjetas_papelera'
 import {getData} from '../api/randomUser'
 import {getDataAsync, storeDataAsync} from '../components/funciones_async'
+import { abs } from 'react-native-reanimated';
 
 class Papelera extends React.Component {
     constructor(){
@@ -97,16 +98,20 @@ render(){
         <SafeAreaView>
         <View style={styles.tarjetasContainer}>
 
-        <Text>Papelera de reciclaje</Text>
+        <Text style={styles.titulo}>Papelera de reciclaje</Text>
 
         <FlatList style={styles.FlatList}
       data={this.state.tarjetasEnPapelera}
       renderItem={this.renderItem}
       keyExtractor={this.keyExtractor}
     />
-      <Text onPress={()=> this.limpiarPapelera()}>Limpiar Papelera</Text>
-      <Text onPress={()=> this.restaurarBorradas()}>Restaurar seleccionadas</Text>
-      <Text onPress={()=> this.sacarRestaurados(this.state.seleccionados, this.state.tarjetasEnPapelera)}>Borrar seleccionadas</Text>
+
+    <View style={styles.botonesAbajo}>
+      <Text  style={styles.botonAbajo} onPress={()=> this.restaurarBorradas()}>Restaurar seleccionadas</Text>
+      <Text style={styles.botonAbajo} onPress={()=> this.sacarRestaurados(this.state.seleccionados, this.state.tarjetasEnPapelera)}>Borrar seleccionadas</Text>
+      <Text style={styles.botonAbajo} onPress={()=> this.limpiarPapelera()}>Limpiar Papelera</Text>
+    </View>
+
      <View style={styles.hamburguerButton}>
         <TouchableOpacity onPress={()=> this.props.navigation.toggleDrawer()}>
               <Text  style={styles.burgerText}>=</Text>         
@@ -133,10 +138,10 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 20
+      
       },
       FlatList:{
-        height: "90%"
+        height: "92%"
       },
       
       hamburguerButton:{
@@ -156,6 +161,31 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
         fontSize: 20,
         color: 'black'
+      },
+      titulo:{
+        fontSize: 20,
+      },
+      botonesAbajo:{
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignContent: 'space-around'
+       
+       
+      },
+      botonAbajo:{
+        width: '30%',
+        borderColor: 'black',
+        borderWidth: 2,
+        borderRadius: 2,
+        fontSize: 11,
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 30, 
+        paddingTop: '2%',
+        margin: '1%',
+        padding: '2%'
       }
     })
     

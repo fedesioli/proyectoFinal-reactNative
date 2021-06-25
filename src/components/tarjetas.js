@@ -45,18 +45,20 @@ class Tarjeta extends React.Component{
             <View className='tarjetaHijo'>
                 <Text>{this.props.datosPersona.name.first}</Text>
                 <Text>{this.props.datosPersona.name.last}</Text>
-                <Text>{this.props.datosPersona.dob.age}</Text> 
+                <Text>{this.props.datosPersona.dob.age} años</Text> 
 
                 {/* {this.state.seleccionado ? 
                 <FontAwesomeIcon icon={FaCheckCircle} onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)}/> :
                 <FontAwesomeIcon icon={FaTimesCircle} onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)}/>
                 } */}
-                
+
                 {/* Chequeamos el estado para mostrar el boton de seleccionar o deseleccionar segun corresponda */}
+                <View style={styles.seleccionar}>
                 {this.state.seleccionado ? 
                 <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >Deseleccionar</Text> :
                 <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >Seleccionar</Text>
-                }
+            }
+            </View>
                
                 
                 
@@ -79,5 +81,8 @@ const styles = StyleSheet.create({
         borderRadius: 20,
 
       },
+      seleccionar:{
+          marginTop: 20
+      }
     })
 export default Tarjeta;

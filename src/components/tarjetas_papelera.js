@@ -41,11 +41,12 @@ class TarjetaPapelera extends React.Component{
                 <Text>{this.props.datosPersona.name.first}</Text>
                 <Text>{this.props.datosPersona.name.last}</Text>
                 <Text>{this.props.datosPersona.dob.age}</Text> 
-
+                <View style={styles.seleccionar}>
                 {this.state.seleccionado ? 
                 <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >Deseleccionar</Text> :
                 <Text onPress={()=> this.ifSeleccionado(this.props.datosPersona.login.uuid)} >Seleccionar</Text>
                 }
+                 </View>
                 {/* <Text onPress={this.props.borrarTarjeta.bind(this, this.props.datosPersona)}>Eliminar tarjeta</Text> */}
                 
                 {/* <Switch style={{marginTop: 5}} ></Switch>    */}
@@ -70,5 +71,8 @@ const styles = StyleSheet.create({
         borderRadius: 20,
 
       },
+      seleccionar:{
+          marginTop: 20
+      }
     })
 export default TarjetaPapelera;

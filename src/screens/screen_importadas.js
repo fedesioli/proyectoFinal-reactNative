@@ -46,7 +46,7 @@ class Importadas extends React.Component {
     }
 keyExtractor = (item, idx) => item.login.uuid.toString();
 
-
+// Aca definimos el compenente que se imprime en el flatlist con los datos de cada tarjeta como parametro
 renderItem = ({item}) => {
     return(
          
@@ -54,9 +54,11 @@ renderItem = ({item}) => {
           
     )
 }
-    
+
+// Aca traemos las tarjetas del async
 async getDataImportados(){
     try{
+      // Buscamos con getItem seguna la key "favoritos"
           const resultado = await AsyncStorage.getItem('Favoritos');
           this.setState({personasFavoritas: JSON.parse(resultado), personasFavoritasBackup: JSON.parse(resultado)});
           return resultado;   
@@ -65,6 +67,7 @@ async getDataImportados(){
     }
 }
 
+// Aca vaciamos el storage completo
 async storeFavoritosVacio(){
   try{
     const favoritos = []
@@ -76,24 +79,28 @@ async storeFavoritosVacio(){
   }
 }
 
-
-async updateFavoritos(resultado){
-  try{
+// Aca hacemos un update de los favoritos
+// async updateFavoritos(resultado){
+//   try{
    
-    const jsonUsers = JSON.stringify(resultado);
-    await AsyncStorage.setItem('Favoritos', jsonUsers)
-  }catch(e){
-    console.log(e)
-  }
-}
+//     const jsonUsers = JSON.stringify(resultado);
+//     await AsyncStorage.setItem('Favoritos', jsonUsers)
+//   }catch(e){
+//     console.log(e)
+//   }
+// }
 
 
+// Aca vaciamos el storage completo
 borrarStorageCompleto = ()=> {
+  // Primero limpiamos el asyn storage
   this.storeFavoritosVacio();
+  // Actualizamos el estado
   this.setState({personasFavoritas: []})
   
 }
 
+// Aca borramos cada tarjeta
 borrarTarjeta = async (tarjeta) => {
   try{
     //agarro la papelera
@@ -114,34 +121,40 @@ let borrada = this.state.personasFavoritas.filter( (item)=> {
 let papelera = [...actualPapelera, ...borrada]
 storeDataAsync(papelera,'Papelera')
 
+  // Actualizamos estado
 this.setState({personasFavoritas: resultado});
 
 } catch(e) {
   }}
 
-async traerPapelera(){
-  try{
-        const resultadoPapelera = await AsyncStorage.getItem('Papelera');
-        this.setState({tarjetasEnPapeleraPrevias: JSON.parse(resultadoPapelera)});
-        return resultadoPapelera;   
-  }catch(e){
-        console.log(e)
-  }
-}
+// async traerPapelera(){
+//   try{
+//         const resultadoPapelera = await AsyncStorage.getItem('Papelera');
+//         this.setState({tarjetasEnPapeleraPrevias: JSON.parse(resultadoPapelera)});
+//         return resultadoPapelera;   
+//   }catch(e){
+//         console.log(e)
+//   }
+// }
 
 
-   
+// Aca filtramos las tarjetas para el buscador
 buscador(loBuscado) {
 
+  // Hacemos un if para saber que haya algo en el text input
   if(loBuscado.length !== 0) {
+    // Si hay algo en el input hacemos el filter
     const resultadoBusqueda = this.state.personasFavoritas.filter(item => {
+      // Ponemos todo en uppercase para que no hayan errores
       const itemName = item.name.first.toUpperCase(); 
       const itemLastName = item.name.last.toUpperCase();
       const itemAge = item.dob.age.toString()
       const loBuscadoUpper = loBuscado.toUpperCase();
+      // Filtramos segun nombre o apellido o edad
       return itemName.includes(loBuscadoUpper) || itemLastName.includes(loBuscadoUpper) || itemAge.includes(loBuscadoUpper)
 
     });
+    // Actualizamos el estado con los resultados
       this.setState({
         personasFavoritas : resultadoBusqueda,
         loBuscado: '',
@@ -149,6 +162,7 @@ buscador(loBuscado) {
 
   }
   else{
+    // Si el input esta vacio se restaura a la vista original
     this.setState({
       personasFavoritas: this.state.personasFavoritasBackup
     })
@@ -164,8 +178,8 @@ render(){
         <SafeAreaView>
             <View style={styles.tarjetasContainer}>
 
-            <Text>Tarjetas importadas</Text>
-            <TextInput  placeholder="Encontra tu tarjeta" style={this.inputSearch}  onChangeText={(loBuscado) => this.buscador(loBuscado) }  /> 
+            <Text style={styles.titulo}>Tarjetas importadas</Text>
+            <TextInput  placeholder="Encontra tu tarjeta" style={styles.inputSearch}  onChangeText={(loBuscado) => this.buscador(loBuscado) }  /> 
 
             <FlatList
           data={this.state.personasFavoritas}
@@ -219,13 +233,19 @@ const styles = StyleSheet.create({
         right: 10,
       },
       inputSearch: {
-        margin:40,
+        margin:10,
         justifyContent: 'center',
         alignItems: "center",
         backgroundColor: "white",
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 3,
         width:150,
-        height:50,
+        height:35,
 
+      },
+      titulo: {
+        fontSize:20,
       },
       hamburguerButton:{
         width: 40,

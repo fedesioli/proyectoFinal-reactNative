@@ -102,8 +102,8 @@ render(){
         <SafeAreaView>
             <View style={styles.tarjetasContainer}>
 
-            <Text>Modifica tus tarjetas</Text>
-            <TextInput  placeholder="Encontra tu tarjeta" style={this.inputSearch}  onChangeText={(loBuscado) => this.buscador(loBuscado) }  /> 
+            <Text style={styles.titulo}>Modifica tus tarjetas</Text>
+            <TextInput  placeholder="Encontra tu tarjeta" style={styles.inputSearch}  onChangeText={(loBuscado) => this.buscador(loBuscado) }  /> 
 
             <FlatList
           data={this.state.personasFavoritas}
@@ -182,7 +182,22 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
         fontSize: 20,
         color: 'black'
-      }
+      },
+      inputSearch: {
+        margin:10,
+        justifyContent: 'center',
+        alignItems: "center",
+        backgroundColor: "white",
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 3,
+        width:150,
+        height:35,
+
+      },
+      titulo: {
+        fontSize:20,
+      },
     })
     
 

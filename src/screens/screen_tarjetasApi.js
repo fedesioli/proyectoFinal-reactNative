@@ -109,15 +109,15 @@ import {getDataAsync, storeDataAsync} from '../components/funciones_async'
     
     return (
       <SafeAreaView  style = {styles.homePadre} >
-      
         <View style={styles.tarjetasContainer}>
+       <Text style={styles.titulo}>Importa tus tarjetas favoritas</Text>
 
         <FlatList style={styles.FlatList}
           data={this.state.personas}
           renderItem={this.renderItem}
           keyExtractor={this.keyExtractor}
         />
-        <Text style={{fontSize: 30}} onPress= {this.storeFavoritos.bind(this)}>Importar</Text>
+        <Text style={styles.importar} onPress= {this.storeFavoritos.bind(this)}>Importar</Text>
           <View style={styles.hamburguerButton}>
         <TouchableOpacity onPress={()=> this.props.navigation.toggleDrawer()}>
               <Text  style={styles.burgerText}>=</Text>         
@@ -165,6 +165,14 @@ const styles = StyleSheet.create({
       FlatList:{
         paddingTop: "10%",
         height: "94%"
+      },
+      titulo:{
+        fontSize: 20,
+        marginTop:10
+      },
+      importar:{
+        fontSize: 25,
+        marginBottom:'5%'
       }
     })
     export default TarjetasApi;

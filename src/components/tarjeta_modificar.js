@@ -53,8 +53,11 @@ class TarjetaModificar extends React.Component{
             <View className='tarjetaHijo'>
                 <Text>{this.props.datosPersona.name.first}</Text>
                 <Text>{this.props.datosPersona.name.last}</Text>
-                <Text>{this.props.datosPersona.dob.age}</Text> 
+                <Text>{this.props.datosPersona.dob.age} años</Text> 
+                <View style={styles.seleccionar}>
+
                 <Text onPress={this.abrirModal}>Comentar</Text>
+                </View>
                 
                 
                 
@@ -116,6 +119,9 @@ const styles = StyleSheet.create({
         top: 10,
         right: 10,
     
+    },
+    seleccionar:{
+        marginTop: 20,
     }
     })
 export default TarjetaModificar;
