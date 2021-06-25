@@ -8,6 +8,7 @@ import TarjetasApi from './src/screens/screen_tarjetasApi'
 import Importadas from './src/screens/screen_importadas'
 import Papelera from './src/screens/screen_papelera'
 import Modificar from './src/screens/screen_modificar'
+import AboutUs from './src/screens/screen_about';
 
 import 'react-native-gesture-handler';
 import React, {Component} from 'react';
@@ -46,6 +47,7 @@ export default class App extends React.Component {
           <Drawer.Screen name='importadas' component={Importadas}/>
           <Drawer.Screen name='modificar' component={Modificar}/>
           <Drawer.Screen name='papelera' component={Papelera}/>
+          <Drawer.Screen name='about' component={AboutUs}/>
         </Drawer.Navigator>
       </NavigationContainer>
     );

@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Touchable, FlatLis
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import  Component from 'react-native';
 import Tarjeta from '../components/tarjetas'
-import {getDataAPI, verMasAPI} from '../api/randomUser'
+import {getDataAPI, cargarNuevasTarjetas} from '../api/randomUser'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import {getDataAsync, storeDataAsync} from '../components/funciones_async'
@@ -106,14 +106,14 @@ import {getDataAsync, storeDataAsync} from '../components/funciones_async'
   }
 
 
-  verMasApi = async () => {
+  cargarNuevasTarjetas = async () => {
     try{
-      verMasAPI(this.state.verMas)
+      cargarNuevasTarjetas(this.state.verMas)
       .then(tarjetas => {
         this.setState({personas: [...this.state.personas, ... tarjetas]})
       })  
-    {
-      }
+      Alert.alert('Se importaron ' + this.state.verMas + ' tarjetas')
+    
     }catch(e){}
   }
   
@@ -130,7 +130,7 @@ import {getDataAsync, storeDataAsync} from '../components/funciones_async'
           keyExtractor={this.keyExtractor}
         />
         <TextInput style={styles.inputSearch} placeholder="Cuantas tarjetas desea agregar?" onChangeText={text => this.setState({verMas: text})}></TextInput>
-        <Text style={styles.importar} onPress= {this.verMasApi.bind(this)}>Ver Mas</Text>
+        <Text style={styles.importar} onPress= {this.cargarNuevasTarjetas.bind(this)}>Ver Mas</Text>
         <Text style={styles.importar} onPress= {this.storeFavoritos.bind(this)}>Importar</Text>
           <View style={styles.hamburguerButton}>
         <TouchableOpacity onPress={()=> this.props.navigation.toggleDrawer()}>
@@ -190,14 +190,14 @@ const styles = StyleSheet.create({
       },
       FlatList:{
         paddingTop: "10%",
-        height: "94%"
+        height: "80%"
       },
       titulo:{
         fontSize: 20,
         marginTop:10
       },
       importar:{
-        fontSize: 25,
+        fontSize: 20,
         marginBottom:'5%'
       }
     })

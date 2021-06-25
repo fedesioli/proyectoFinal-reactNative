@@ -9,7 +9,7 @@ export async function getDataAPI(){
    }
 }
 
-export const verMasAPI = async (cantidad)=>{
+export const cargarNuevasTarjetas = async (cantidad)=>{
     try{
         let resultado = await fetch('https://randomuser.me/api?results=' + cantidad);
         let json = await resultado.json();
