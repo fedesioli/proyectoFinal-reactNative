@@ -24,6 +24,7 @@ class TarjetaImportada extends React.Component{
         
   abrirModal = async () =>{
     const comentariosViejos = await getDataAsync(this.props.datosPersona.login.uuid)
+    
         if(comentariosViejos != ""){
 
             this.setState({showModal: true, comentarioAnterior: comentariosViejos})

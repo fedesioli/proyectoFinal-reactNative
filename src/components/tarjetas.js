@@ -12,8 +12,6 @@ class Tarjeta extends React.Component{
         super(props);
         this.state = {
             seleccionado: false,
-            displaySeleccionar: "flex",
-            displayDeseleccionar: "none"
         }
     }
   

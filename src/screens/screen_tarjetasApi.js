@@ -13,6 +13,8 @@ import {getDataAsync, storeDataAsync} from '../components/funciones_async'
 
 
  class TarjetasApi extends React.Component {
+
+
   constructor(){
     super();
     this.state = {
@@ -37,9 +39,9 @@ import {getDataAsync, storeDataAsync} from '../components/funciones_async'
 
   renderItem = ({item}) => {
     return(
-      // <TouchableOpacity onPress={() => this.abrirModal(item)}>
+      
         <Tarjeta style={styles.tarjeta} datosPersona={item} agregarASeleccionados={this.agregarASeleccionados} deseleccionar={this.deseleccionar}/>
-      // </TouchableOpacity>
+      
     )
   }
 
@@ -62,15 +64,7 @@ import {getDataAsync, storeDataAsync} from '../components/funciones_async'
       console.log(e)
     }
   }
-//   async Importados(){
-//     try{
-//           const resultado = await AsyncStorage.getItem('Favoritos');
-//           this.setState({tarjetasImportadas: JSON.parse(resultado)});
-//           return resultado;   
-//     }catch(e){
-//           console.log(e)
-//     }
-// }
+
 
   abrirModal(item){
     this.setState({showModal: true, itemModal: item})
@@ -79,10 +73,9 @@ import {getDataAsync, storeDataAsync} from '../components/funciones_async'
   }
 
   agregarASeleccionados = (item) => {
-    let seleccionados2 = this.state.seleccionados.concat(item)
-    this.setState({seleccionados:seleccionados2})
+    let todosLosSeleccionados = this.state.seleccionados.concat(item)
+    this.setState({seleccionados: todosLosSeleccionados})
     // console.log(this.state.seleccionados.length)
-    
   }
 
   deseleccionar = (idTarjeta) => {
@@ -104,11 +97,8 @@ import {getDataAsync, storeDataAsync} from '../components/funciones_async'
     
     return (
       <SafeAreaView  style = {styles.homePadre} >
-        {/* Body */}
+      
         <View style={styles.tarjetasContainer}>
-
-        
-
 
         <FlatList style={styles.FlatList}
           data={this.state.personas}

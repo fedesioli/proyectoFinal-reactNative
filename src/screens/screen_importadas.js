@@ -49,9 +49,9 @@ keyExtractor = (item, idx) => item.login.uuid.toString();
 
 renderItem = ({item}) => {
     return(
-          // <TouchableOpacity onPress={() => this.abrirModal(item)}>
+         
             <TarjetaImportada style={styles.tarjeta} datosPersona={item} borrarTarjeta={this.borrarTarjeta}/>
-          // </TouchableOpacity>
+          
     )
 }
     
@@ -87,17 +87,6 @@ async updateFavoritos(resultado){
   }
 }
 
-// async cargarPapelera(){
-//   try{
-//     this.traerPapelera();
-//     const papelera = this.state.tarjetasEnPapeleraPrevias.push(this.state.eliminadas)
-//     const jsonUsers = JSON.stringify(papelera);
-//     await AsyncStorage.setItem('Papelera', jsonUsers)
-//     console.log(jsonUsers + 'asda')
-//   }catch(e){
-//     console.log(e)
-//   }
-// }
 
 borrarStorageCompleto = ()=> {
   this.storeFavoritosVacio();
